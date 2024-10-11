@@ -30,7 +30,7 @@ const fn = new Function();
 // 写一个循环，每隔1s打印123456f
 
 for (var i = 0; i < 6; i++) {
-  ((j) => {
+  (j => {
     setTimeout(() => {
       // console.log(j);
     }, j * 1000);
@@ -52,7 +52,7 @@ for (var i = 0; i < 6; i++) {
 
 for (var i = 0; i < 6; i++) {
   setTimeout(
-    (j) => {
+    j => {
       // console.log(j);
     },
     i * 1000,
@@ -185,8 +185,8 @@ const poll = (api, param) => {
         value: Child,
         enumerable: false,
         writable: true,
-        configurable: true
-      }
+        configurable: true,
+      },
     });
 
     const child = new Child(1, 2, 3);
@@ -217,7 +217,7 @@ console.log('笔试..........................');
 
 {
   function maxScore(m, counts) {
-    const availableCounts = counts.filter((count) => count > 0);
+    const availableCounts = counts.filter(count => count > 0);
 
     const distinctCardCount = availableCounts.length;
 
@@ -229,6 +229,6 @@ console.log('笔试..........................');
 
   const m = 5;
   const numbers = [3, 2, 1, 0, 1];
-  const result = maxScore(m, numbers);
+  const result = maxScore(m, numbers)
   // console.log(result);
 }
