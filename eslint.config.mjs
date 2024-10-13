@@ -25,12 +25,13 @@ export default [
     rules: {
       // eslint插件 全局规则
       'no-empty': 'warn',
-      'no-invalid-this': 'off',
+      'no-unused-vars': 'off',
+      'quotes': ['error', 'single'],
 
       // tslint插件 全局规则
-      '@typescript-eslint/no-unused-vars': 'warn',
-      '@typescript-eslint/no-invalid-this': 'error',
+      '@typescript-eslint/no-unused-vars': 'error',
       '@typescript-eslint/no-explicit-any': 'warn',
+      "@typescript-eslint/no-unsafe-function-type": "warn",
 
       // pluginReact 插件全局配置
       'react/react-in-jsx-scope': 'off',
