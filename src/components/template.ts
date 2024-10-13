@@ -10,17 +10,17 @@
 
 // 二叉树
 type TreeNode = {
-  val: number;
-  left: TreeNode | null;
-  right: TreeNode | null;
-  constructor: (val?: number, left?: TreeNode | null, right?: TreeNode | null) => TreeNode | null;
+  val: number
+  left: TreeNode | null
+  right: TreeNode | null
+  constructor: (val?: number, left?: TreeNode | null, right?: TreeNode | null) => TreeNode | null
 };
 
 // 链表
 type ListNode = {
-  val: number;
-  next: ListNode | null;
-  constructor: (val?: number, next?: ListNode | null) => ListNode | null;
+  val: number
+  next: ListNode | null
+  constructor: (val?: number, next?: ListNode | null) => ListNode | null
 };
 
 //  双指针，只有一个输入，从两端开始遍历
@@ -34,7 +34,8 @@ type ListNode = {
       if (arr[left] > arr[right]) {
         res = Math.max(res, arr[left]);
         ++left;
-      } else {
+      }
+      else {
         res = Math.max(res, arr[right]);
         --right;
       }
@@ -50,7 +51,7 @@ type ListNode = {
 
 // 双指针,有两个输入，两个都需要遍历完
 {
-  let fn = (arr1, arr2) => {
+  const fn = (arr1, arr2) => {
     let start1 = 0;
     let start2 = 0;
     let max = Number.MIN_SAFE_INTEGER;
@@ -59,7 +60,8 @@ type ListNode = {
       if (arr1[start1] > arr2[start2]) {
         max = Math.max(max, arr1[start1]);
         ++start1;
-      } else {
+      }
+      else {
         max = Math.max(max, arr2[start2]);
         ++start2;
       }
@@ -133,7 +135,7 @@ type ListNode = {
   const fn = (head: ListNode) => {
     let slow = head;
     let fast = head;
-    let ans = 0;
+    const ans = 0;
 
     while (fast && fast.next) {
       slow = slow.next;
@@ -185,7 +187,7 @@ type ListNode = {
 {
   // 示例，求单调递增子序列和
   const fn = (arr: number[]): number => {
-    let stack: number[] = [];
+    const stack: number[] = [];
     let total = arr.reduce((sum, cur) => sum + cur);
 
     for (const num of arr) {
@@ -210,7 +212,7 @@ type ListNode = {
   const dfs = (root: TreeNode | null) => {
     if (!root) return;
 
-    let ans = 0;
+    const ans = 0;
 
     dfs(root.left);
     dfs(root.right);

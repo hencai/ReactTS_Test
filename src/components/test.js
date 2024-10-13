@@ -30,7 +30,7 @@ const fn = new Function();
 // 写一个循环，每隔1s打印123456f
 
 for (var i = 0; i < 6; i++) {
-  (j => {
+  ((j) => {
     setTimeout(() => {
       // console.log(j);
     }, j * 1000);
@@ -52,11 +52,11 @@ for (var i = 0; i < 6; i++) {
 
 for (var i = 0; i < 6; i++) {
   setTimeout(
-    j => {
+    (j) => {
       // console.log(j);
     },
     i * 1000,
-    i
+    i,
   );
 }
 
@@ -69,7 +69,8 @@ const fetchData = async (api, param) =>
     const data = { code: 200, reason: '' };
     if (data.code === 200) {
       resolve(data);
-    } else {
+    }
+    else {
       reject(data.reason);
     }
   });
@@ -79,7 +80,8 @@ const poll = (api, param) => {
   let timer = setTimeout(async () => {
     try {
       data = await fetchData(api, param);
-    } catch (e) {
+    }
+    catch (e) {
       data = null;
       console.log('e');
     }
@@ -223,12 +225,16 @@ console.log('笔试..........................');
 
     return Math.min(
       distinctCardCount,
-      availableCounts.reduce((sum, count) => sum + 1, 0)
+      availableCounts.reduce((sum, count) => sum + 1, 0),
     );
   }
 
   const m = 5;
   const numbers = [3, 2, 1, 0, 1];
-  const result = maxScore(m, numbers)
+  const result = maxScore(m, numbers);
   // console.log(result);
 }
+
+const testFunc = (a) => {
+  a = 2;
+};

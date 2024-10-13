@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 class MyComponent extends React.Component {
   // render 阶段 ： 纯净且不包含副作用，可能会被React暂停、终止或重新启动
   constructor(props) {
     super(props);
   }
 
-  getDerivedStateFromProps(props, state): Object {
+  getDerivedStateFromProps(props, state): object {
     return {};
   }
 
