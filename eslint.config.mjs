@@ -8,12 +8,15 @@ import stylisticTs from '@stylistic/eslint-plugin-ts';
 import stylisticJsx from '@stylistic/eslint-plugin-jsx';
 
 export default [
-  { files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'] },
-  { languageOptions: { globals: globals.browser } },
+  {
+    files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'],
+    languageOptions: { globals: globals.browser },
+  },
   stylistic.configs['recommended-flat'],
-
   ...tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
+
+  // 配置所有通用规则
   {
     files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'],
     plugins: {
@@ -37,8 +40,9 @@ export default [
       '@stylistic/semi': ['error', 'always'],
     },
   },
+
+  // js 文件风格配置  代替的是 eslint 中的风格配置
   {
-    // js 文件风格配置  代替的是 eslint 中的风格配置
     files: ['**/*.{js,mjs,cjs}'],
     plugins: {
       '@stylistic/js': stylisticJs,
@@ -46,8 +50,9 @@ export default [
     rules: {
     },
   },
+
+  // ts 文件单独代码风格配置  代替的是 @typescript-eslint/eslint-plugin  中的风格配置
   {
-    // ts 文件单独代码风格配置  代替的是 @typescript-eslint/eslint-plugin  中的风格配置
     files: ['**/*.{ts,tsx}'],
     plugins: {
       '@stylistic/ts': stylisticTs,
@@ -56,8 +61,9 @@ export default [
     rules: {
     },
   },
+
+  // jsx 文件代码风格配置  代替的是 eslint-plugin-react 中的风格配置
   {
-    // jsx 文件代码风格配置  代替的是 eslint-plugin-react 中的风格配置
     files: ['**/*.{jsx}'],
     plugins: {
       '@stylistic/jsx': stylisticJsx,
