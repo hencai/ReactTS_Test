@@ -17,7 +17,7 @@ type ListNode = {
 
 //  双指针，只有一个输入，从两端开始遍历
 {
-  const fn = (arr) => {
+  const fn = (arr: any) => {
     let left = 0;
     let right = arr.length - 1;
     let res = Number.MIN_SAFE_INTEGER;
@@ -43,7 +43,7 @@ type ListNode = {
 
 // 双指针,有两个输入，两个都需要遍历完
 {
-  const fn = (arr1, arr2) => {
+  const fn = (arr1: any, arr2: any) => {
     let start1 = 0;
     let start2 = 0;
     let max = Number.MIN_SAFE_INTEGER;
@@ -80,7 +80,7 @@ type ListNode = {
 
 // 滑动窗口
 {
-  const fn = (arr, k) => {
+  const fn = (arr: any[], k: number) => {
     let left = 0;
     let cur = 0;
     const res: number[] = [];
@@ -129,7 +129,7 @@ type ListNode = {
     let fast = head;
     const ans = 0;
 
-    while (fast && fast.next) {
+    while (slow.next && fast.next?.next) {
       slow = slow.next;
       fast = fast.next.next;
     }
@@ -146,7 +146,7 @@ type ListNode = {
     let cur: ListNode | null = head;
     let prev: ListNode | null = null;
     while (cur) {
-      const nextNode = cur.next;
+      const nextNode: ListNode | null = cur.next;
       cur.next = prev;
       prev = cur;
       cur = nextNode;

@@ -1,30 +1,5 @@
 {
-  const test = () => {
-    var num = 2;
-    function a_func() {
-      const num = 3;
-      console.log(this.num);
-    };
-  };
-}
-
-{
-  const test = () => {
-    function b() {
-      const num = 3;
-      a_func.call(this);
-    };
-
-    var obj = {
-      num: 1,
-      func: b.bind(this),
-    };
-
-    obj.func();
-  };
-}
-
-{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     Function.prototype.fn1 = () => console.log(1);
     Object.prototype.fn2 = () => console.log(2);
@@ -36,7 +11,9 @@
 }
 
 // 写一个循环，每隔1s打印123456f
+// 第一种
 {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     for (var i = 0; i < 6; i++) {
       ((j) => {
@@ -45,20 +22,37 @@
         }, j * 1000);
       })(i);
     }
+  };
+}
 
+// 第二种
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
     for (let i = 0; i < 6; i++) {
       setTimeout(() => {
         console.log(i);
       }, i * 1000);
     }
+  };
+}
 
+// 第三周
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
     for (var i = 0; i < 6; i++) {
       const j = i;
       setTimeout(() => {
         console.log(j);
       }, j * 1000);
     }
+  };
+}
 
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
     for (var i = 0; i < 6; i++) {
       setTimeout(
         (j) => {
@@ -73,6 +67,7 @@
 
 // 自己实现第一版
 {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const fetchData = async (api, param) =>
       new Promise((resolve, reject) => {
@@ -112,15 +107,15 @@
 }
 
 /**
- * 继承相关
- */
+   * 继承相关
+   */
 
 {
   // 原型链继承
   /**
-   * 1. 范围: 子类构造函数 & 父类构造函数 & 父类原型对象
-   * 2. 缺点: 单一继承
-   */
+     * 1. 范围: 子类构造函数 & 父类构造函数 & 父类原型对象
+     * 2. 缺点: 单一继承
+     */
   {
     function Father() {
       this.father = 'Father';
@@ -138,10 +133,10 @@
 
   // 构造函数继承
   /**
-   * 1. 可以多继承
-   * 2. 范围: 子类构造函数 & 父类构造函数
-   * 3. 缺点: 无法获取父类原型对象上的所有 & 子类实例修改父类构造函数中的属性,其余子类实例获取的父类构造函数所有也改变
-   */
+     * 1. 可以多继承
+     * 2. 范围: 子类构造函数 & 父类构造函数
+     * 3. 缺点: 无法获取父类原型对象上的所有 & 子类实例修改父类构造函数中的属性,其余子类实例获取的父类构造函数所有也改变
+     */
   {
     function Father() {
       this.father = 'Father';
@@ -163,10 +158,10 @@
 
   // 组合继承
   /**
-   * 1. 解决了无法获取父类原型对象所有的问题
-   * 2. 解决了子类实例修改父类构造函数中的属性,其余子类实例获取的父类构造函数所有也改变
-   * 3. 但是父类构造函数调用了两次,导致子类原型上多一份父类构造函数所有数据
-   */
+     * 1. 解决了无法获取父类原型对象所有的问题
+     * 2. 解决了子类实例修改父类构造函数中的属性,其余子类实例获取的父类构造函数所有也改变
+     * 3. 但是父类构造函数调用了两次,导致子类原型上多一份父类构造函数所有数据
+     */
   {
     function Father() {
       this.father = 'Father';
@@ -179,14 +174,15 @@
 
     Child.prototype = new Father();
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const child = new Child(1, 2, 3);
   }
 
   // 寄生继承
   /**
-   * 1. 解决重复调用父类构造函数的问题
-   * 2. 只使用Object.create()来创建父类的原型对象,而不是调用父类构造函数
-   */
+     * 1. 解决重复调用父类构造函数的问题
+     * 2. 只使用Object.create()来创建父类的原型对象,而不是调用父类构造函数
+     */
   {
     function Father() {
       this.father = 'Father';
@@ -206,6 +202,7 @@
       },
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const child = new Child(1, 2, 3);
   }
 
@@ -226,246 +223,280 @@
       }
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const child = new Child(1, 2, 3);
   }
 }
 
-// const count = (n, m, directions) => {
-//   //   const TIME = Math.pow(10, 8);
-//   const TIME = 100000;
-//   const directionMap = {
-//     L: [0, -1],
-//     R: [0, 1],
-//     U: [-1, 0],
-//     D: [1, 0]
-//   };
+// 笔试题
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    const count = (n, m, directions) => {
+      //   const TIME = Math.pow(10, 8);
+      const TIME = 100000;
+      const directionMap = {
+        L: [0, -1],
+        R: [0, 1],
+        U: [-1, 0],
+        D: [1, 0],
+      };
 
-//   let grid = Array.from({ length: n }, () => Array(m).fill(1));
+      let grid = Array.from({ length: n }, () => Array(m).fill(1));
 
-//   let seenStates = new Map();
+      let seenStates = new Map();
 
-//   for (let t = 0; t < TIME; t++) {
-//     let stateString = grid.flat().join(',');
+      for (let t = 0; t < TIME; t++) {
+        let stateString = grid.flat().join(',');
 
-//     if (seenStates.has(stateString)) {
-//       break;
-//     }
+        if (seenStates.has(stateString)) {
+          break;
+        }
 
-//     seenStates.set(stateString, t);
+        seenStates.set(stateString, t);
 
-//     let newGrid = Array.from({ length: n }, () => Array(m).fill(0));
+        let newGrid = Array.from({ length: n }, () => Array(m).fill(0));
 
-//     for (let i = 0; i < n; i++) {
-//       for (let j = 0; j < m; j++) {
-//         let robots = grid[i][j];
-//         if (robots > 0) {
-//           const [di, dj] = directionMap[directions[i][j]];
-//           const ni = i + di;
-//           const nj = j + dj;
-//           if (ni >= 0 && ni < n && nj >= 0 && nj < m) {
-//             newGrid[ni][nj] += robots;
-//           }
-//         }
-//       }
-//     }
+        for (let i = 0; i < n; i++) {
+          for (let j = 0; j < m; j++) {
+            let robots = grid[i][j];
+            if (robots > 0) {
+              const [di, dj] = directionMap[directions[i][j]];
+              const ni = i + di;
+              const nj = j + dj;
+              if (ni >= 0 && ni < n && nj >= 0 && nj < m) {
+                newGrid[ni][nj] += robots;
+              }
+            }
+          }
+        }
 
-//     grid = newGrid;
-//   }
-
-//   let remainingRobots = 0;
-//   for (let i = 0; i < n; i++) {
-//     for (let j = 0; j < m; j++) {
-//       remainingRobots += grid[i][j];
-//     }
-//   }
-
-//   return remainingRobots;
-// };
-// const [n, m] = [2, 5];
-// const directions = [
-//   ['L', 'R', 'R', 'L', 'R'],
-//   ['U', 'U', 'L', 'L', 'R']
-// ];
-
-// console.log(count(n, m, directions));
-
-// let totalSum = inputs[1].reduce((sum, cur) => sum + cur, 0);
-
-// let minCost = Infinity;
-
-// let prefixSums = [0];
-// for (let i = 0; i < inputs[0][0]; i++) {
-//   prefixSums.push(prefixSums[i] + inputs[1][i]);
-// }
-
-// for (let i = 0; i < inputs[0][0]; i++) {
-//   let leftSum = prefixSums[i];
-//   let rightSum = totalSum - leftSum;
-//   let cost = leftSum * rightSum;
-//   minCost = Math.min(minCost, cost);
-// }
-
-// const n = inputs[];
-// const cities = [];
-// for (let i = 0; i < n; i++) {
-//     const [x, y] = [],
-//     cities.push({ x, y });
-// }
-
-// function calculateDistance(city1, city2) {
-//     return Math.sqrt(Math.pow(city1.x - city2.x, 2) + Math.pow(city1.y - city2.y, 2));
-// }
-
-// let maxMinDistance = 0;
-// for (let i = 0; i < n; i++) {
-//     for (let j = i + 1; i < n; j++) {
-//         const distance = calculateDistance(cities[i], cities[j]);
-//         maxMinDistance = Math.max(maxMinDistance, distance);
-//     }
-// }
-
-// console.log(Math.ceil(maxMinDistance));
-
-// let n = inputs[0][0];
-// let coordinates = [];
-
-// const distance = (a, b) => Math.sqrt((a[0] - a[0]) ** 2 + (a[1] - b[1]) ** 2);
-// const edges = [];
-// for (let i =0; i < n; i++) {
-//     for (let j = i + 1; j < n; j++) {
-//         edges.push([distance(coordinates[i], coordinates[j]), i, j]);
-//     }
-// }
-
-// edges.sort((a, b) => a[0] - b[0]);
-
-// const parent = Array.from({ length: n }, (_, i) => i);
-// const rank = Array(n).fill(0);
-
-// const find = x => {
-//     if (parent[x] != x) {
-//         parent[x] = find(parent[x]);
-//     }
-
-//     return parent[x];
-// }
-
-// const union = (x, y) => {
-//     const rootX = find(x);
-//     const rootY = find(y);
-//     if (rootX !== rootY) {
-//         if (rank[rootX] > rank[rootY]) parent[rootY] = rootX;
-//         else if (rank[rootX] < rank[rootY]) parent[rootX] = rootX;
-//         else {
-//             parent[rootY] = rootX;
-//             rank[rootX]++;
-//         }
-//     }
-// }
-
-// let maxEdge = 0;
-// let edgesUsed = 0;
-// for (const [dist, u, v] of edges) {
-//     if (find(u) !== find((v))) {
-//         union(u, v);
-//         maxEdge = dist;
-//         edgesUsed++;
-//         if (edgesUsed === n - 1) break;
-//     }
-// }
-
-// console.log(Math.ceil(maxEdge));
-
-// const debounce = (fn, delay) => {
-//   let timer;
-//   return (...args) => {
-//     if (timer) {
-//       clearTimeout(timer);
-//     }
-//     timer = setTimeout(() => {
-//       fn.apply(this, args);
-//     }, delay);
-//   }
-// }
-
-const findLastSingleChar = (str) => {
-  const charMap = {};
-
-  for (let i = 0; i < str.length; i++) {
-    const char = str[i];
-    if (charMap[char]) {
-      charMap[char]++;
-    }
-    else {
-      charMap[char] = 1;
-    }
-  }
-
-  for (let i = str.length - 1; i >= 0; i--) {
-    const char = str[i];
-    if (charMap[char] === 1) {
-      return char;
-    }
-  }
-
-  return '';
-};
-
-console.log(findLastSingleChar('ababa'));
-
-function countOnes(x) {
-  return x.toString(2).split('1').length - 1;
-}
-
-function findNextWithSameOnes(x) {
-  let fx = countOnes(x);
-  let y = x + 1;
-  while (true) {
-    if (countOnes(y) === fx) {
-      return y;
-    }
-    y++;
-  }
-}
-
-function longestSubsequence(a) {
-  let maxLength = 0;
-  let bestSequence = [];
-
-  let indices = new Map();
-
-  a.sort((x, y) => x - y);
-
-  for (let i = 0; i < a.length; i++) {
-    indices.set(a[i], findNextWithSameOnes(a[i]));
-  }
-
-  for (let i = 0; i < a.length; i++) {
-    let currentSequence = [a[i]];
-    let current = a[i];
-
-    while (indices.has(current)) {
-      let next = indices.get(current);
-      if (a.includes(next)) {
-        currentSequence.push(next);
-        current = next;
+        grid = newGrid;
       }
-      else {
-        break;
+
+      let remainingRobots = 0;
+      for (let i = 0; i < n; i++) {
+        for (let j = 0; j < m; j++) {
+          remainingRobots += grid[i][j];
+        }
+      }
+
+      return remainingRobots;
+    };
+    const [n, m] = [2, 5];
+    const directions = [
+      ['L', 'R', 'R', 'L', 'R'],
+      ['U', 'U', 'L', 'L', 'R'],
+    ];
+
+    console.log(count(n, m, directions));
+  };
+}
+
+// 力扣题
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    let totalSum = inputs[1].reduce((sum, cur) => sum + cur, 0);
+
+    let minCost = Infinity;
+
+    let prefixSums = [0];
+    for (let i = 0; i < inputs[0][0]; i++) {
+      prefixSums.push(prefixSums[i] + inputs[1][i]);
+    }
+
+    for (let i = 0; i < inputs[0][0]; i++) {
+      let leftSum = prefixSums[i];
+      let rightSum = totalSum - leftSum;
+      let cost = leftSum * rightSum;
+      minCost = Math.min(minCost, cost);
+    }
+  };
+}
+
+// 笔试题
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    function calculateDistance(city1, city2) {
+      return Math.sqrt(Math.pow(city1.x - city2.x, 2) + Math.pow(city1.y - city2.y, 2));
+    }
+
+    let maxMinDistance = 0;
+    for (let i = 0; i < n; i++) {
+      for (let j = i + 1; i < n; j++) {
+        const distance = calculateDistance(cities[i], cities[j]);
+        maxMinDistance = Math.max(maxMinDistance, distance);
       }
     }
 
-    if (currentSequence.length > maxLength) {
-      maxLength = currentSequence.length;
-      bestSequence = currentSequence;
-    }
-  }
-
-  return bestSequence.length;
+    console.log(Math.ceil(maxMinDistance));
+  };
 }
 
-const list = [1, 4, 2, 5, 3];
-console.log(longestSubsequence(list));
+// 笔试题
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    let n = inputs[0][0];
+    let coordinates = [];
+
+    const distance = (a, b) => Math.sqrt((a[0] - a[0]) ** 2 + (a[1] - b[1]) ** 2);
+    const edges = [];
+    for (let i = 0; i < n; i++) {
+      for (let j = i + 1; j < n; j++) {
+        edges.push([distance(coordinates[i], coordinates[j]), i, j]);
+      }
+    }
+
+    edges.sort((a, b) => a[0] - b[0]);
+
+    const parent = Array.from({ length: n }, (_, i) => i);
+    const rank = Array(n).fill(0);
+
+    const find = (x) => {
+      if (parent[x] != x) {
+        parent[x] = find(parent[x]);
+      }
+
+      return parent[x];
+    };
+
+    const union = (x, y) => {
+      const rootX = find(x);
+      const rootY = find(y);
+      if (rootX !== rootY) {
+        if (rank[rootX] > rank[rootY]) parent[rootY] = rootX;
+        else if (rank[rootX] < rank[rootY]) parent[rootX] = rootX;
+        else {
+          parent[rootY] = rootX;
+          rank[rootX]++;
+        }
+      }
+    };
+
+    let maxEdge = 0;
+    let edgesUsed = 0;
+    for (const [dist, u, v] of edges) {
+      if (find(u) !== find((v))) {
+        union(u, v);
+        maxEdge = dist;
+        edgesUsed++;
+        if (edgesUsed === n - 1) break;
+      }
+    }
+
+    console.log(Math.ceil(maxEdge));
+  };
+}
+
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const debounce = (fn, delay) => {
+      let timer;
+      return (...args) => {
+        if (timer) {
+          clearTimeout(timer);
+        }
+        timer = setTimeout(() => {
+          fn.apply(this, args);
+        }, delay);
+      };
+    };
+  };
+}
+
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    const findLastSingleChar = (str) => {
+      const charMap = {};
+
+      for (let i = 0; i < str.length; i++) {
+        const char = str[i];
+        if (charMap[char]) {
+          charMap[char]++;
+        }
+        else {
+          charMap[char] = 1;
+        }
+      }
+
+      for (let i = str.length - 1; i >= 0; i--) {
+        const char = str[i];
+        if (charMap[char] === 1) {
+          return char;
+        }
+      }
+
+      return '';
+    };
+
+    console.log(findLastSingleChar('ababa'));
+  };
+}
+
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    function countOnes(x) {
+      return x.toString(2).split('1').length - 1;
+    }
+
+    function findNextWithSameOnes(x) {
+      let fx = countOnes(x);
+      let y = x + 1;
+      while (true) {
+        if (countOnes(y) === fx) {
+          return y;
+        }
+        y++;
+      }
+    }
+
+    function longestSubsequence(a) {
+      let maxLength = 0;
+      let bestSequence = [];
+
+      let indices = new Map();
+
+      a.sort((x, y) => x - y);
+
+      for (let i = 0; i < a.length; i++) {
+        indices.set(a[i], findNextWithSameOnes(a[i]));
+      }
+
+      for (let i = 0; i < a.length; i++) {
+        let currentSequence = [a[i]];
+        let current = a[i];
+
+        while (indices.has(current)) {
+          let next = indices.get(current);
+          if (a.includes(next)) {
+            currentSequence.push(next);
+            current = next;
+          }
+          else {
+            break;
+          }
+        }
+
+        if (currentSequence.length > maxLength) {
+          maxLength = currentSequence.length;
+          bestSequence = currentSequence;
+        }
+      }
+
+      return bestSequence.length;
+    }
+
+    const list = [1, 4, 2, 5, 3];
+    console.log(longestSubsequence(list));
+  };
+}
 
 {
   let x = 20,
@@ -482,6 +513,6 @@ console.log(longestSubsequence(list));
     return a + 40;
   }
   let result1 = add(x);
-  console.log('result1 ' + result); // "result1 60"
+  console.log('result1 ' + result1); // "result1 60"
   console.log(add);
 }
