@@ -631,7 +631,7 @@ declare function interfaced(arg: Interface): Interface;
     // p2是rejected会触发后续catch回调
     p2.then(() => {
       console.log(456);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     }).catch((err) => {
       console.log(789);
     });
@@ -672,7 +672,7 @@ declare function interfaced(arg: Interface): Interface;
       .then(() => console.log(1))// 状态返回fulfilled
       .catch(() => console.log(2)) // catch中没有报错，状态返回fulfilled，后面的then会执行
       .then(() => console.log(3)); // 1,3
-  // 整个执行完没有报错，状态返回fulfilled
+    // 整个执行完没有报错，状态返回fulfilled
   };
 }
 
@@ -687,7 +687,7 @@ declare function interfaced(arg: Interface): Interface;
       })
       .catch(() => console.log(2)) // catch中没有报错，状态返回fulfilled，后面的then会执行
       .then(() => console.log(3)); // 1,2,3
-  // 整个执行完没有报错，状态返回fulfilled
+    // 整个执行完没有报错，状态返回fulfilled
   };
 }
 
@@ -702,7 +702,7 @@ declare function interfaced(arg: Interface): Interface;
       })
       .catch(() => console.log(2)) // catch中没有报错，状态返回fulfilled，后面的catch不会执行
       .catch(() => console.log(3)); // 1，2
-  // 整个执行完没有报错，状态返回fulfilled
+    // 整个执行完没有报错，状态返回fulfilled
   };
 }
 
@@ -725,13 +725,13 @@ declare function interfaced(arg: Interface): Interface;
         console.log('promise2');
       });
     console.log('script end');
-  /**
-   * script start
-   * script end
-   * promise1
-   * promise2
-   * setTimeout
-   */
+    /**
+     * script start
+     * script end
+     * promise1
+     * promise2
+     * setTimeout
+     */
   };
 }
 
@@ -799,14 +799,14 @@ declare function interfaced(arg: Interface): Interface;
     });
     console.log(4);
 
-  /**
-   * 3
-   * 7
-   * 4
-   * 1
-   * 2
-   * 5
-   */
+    /**
+     * 3
+     * 7
+     * 4
+     * 1
+     * 2
+     * 5
+     */
   };
 }
 
@@ -931,7 +931,7 @@ declare function interfaced(arg: Interface): Interface;
   const test = () => {
     // 实例.__proto__ === 构造函数.prototype
     const myInstanceof = (instance: any, classOrFunc: any) => {
-    // 实例不是对象返回false  判断instance不是基本数据类型
+      // 实例不是对象返回false  判断instance不是基本数据类型
       if (typeof instance !== 'object' || instance === null) {
         return false;
       }
