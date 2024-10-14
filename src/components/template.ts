@@ -195,8 +195,8 @@ type ListNode = {
   };
 
   // 示例
-  const data = [1, 3, 7, 5, 2, 9, 6];
-  console.log(fn(data));
+  // const data = [1, 3, 7, 5, 2, 9, 6];
+  // console.log(fn(data));
 }
 
 // 二叉树：DFS递归
