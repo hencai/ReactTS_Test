@@ -1265,3 +1265,283 @@ class maxQueue {
     console.log(flat(data, 1));
   };
 }
+
+// const count = (n: number, m: number, directions: any[]) => {
+//   const TIME = Math.pow(10, 8);
+//   const directionMap = {
+//     L: [0, -1],
+//     R: [0, 1],
+//     U: [-1, 0],
+//     D: [1, 0]
+//   };
+
+//   const grid = Array.from({ length: n }, () => Array(m).fill(1));
+
+//   for (let t = 0; t < TIME; t++) {
+//     let newGrid = Array.from({ length: n }, () => Array(m).fill(0));
+
+//     for (let i = 0; i < n; i++) {
+//       for (let j = 0; j < m; j++) {
+//         const robots = grid[i][j];
+//         if (robots > 0) {
+//           const [di, dj] = directionMap[directions[i][j]];
+//           const ni = i + di;
+//           const nj = j + dj;
+//           if (ni >= 0 && ni < n && nj >= 0 && nj < m) {
+//             newGrid[ni][nj] += robots;
+//           }
+//         }
+//       }
+//     }
+
+//     grid = newGrid;
+//   }
+
+//   let remainingRobots = 0;
+//   for (let i = 0; i < n; i++) {
+//     for (let j = 0; j < m; j++) {
+//       remainingRobots += grid[i][j];
+//     }
+//   }
+
+//   return remainingRobots;
+// };
+// const [n, m] = input[0].split(' ').map((item) => Number(item));
+// input.pop();
+// const directions = [...input.slice(1).map((item) => item.split(''))];
+
+// console.log(count(n, m, directions));
+/**
+ *
+ */
+
+const func = (matrix: number[][]) => {
+  if (!matrix.length || !matrix[0].length) {
+    return [];
+  }
+
+  const rows = matrix.length;
+  const columns = matrix[0].length;
+  const visited = new Array(rows).fill(0).map(() => new Array(columns).fill(false));
+
+  const total = rows * columns;
+  const order = new Array(total).fill(0);
+
+  let directionIndex = 0,
+    row = 0,
+    column = 0;
+
+  const directions = [
+    [1, 0],
+    [0, 1],
+    [-1, 0],
+    [0, -1],
+  ];
+
+  for (let i = 0; i < total; i++) {
+    order[i] = matrix[row][column];
+    visited[row][column] = true;
+
+    const nextRow = row + directions[directionIndex][0];
+    const nextColumn = column + directions[directionIndex][1];
+
+    if (!(nextRow >= 0 && nextRow < rows && nextColumn >= 0 && nextColumn < columns && !visited[nextRow][nextColumn])) {
+      directionIndex = (directionIndex + 1) % 4;
+    }
+    row += directions[directionIndex][0];
+    column += directions[directionIndex][1];
+  }
+
+  return order[order.length - 1];
+};
+
+// const testArr = [
+//   [9, 7, 5, 3, 2],
+//   [4, 6, 8, 0, 1]
+// ];
+
+// console.log(func(testArr));
+
+const robot = (modes: number[], distance: number) => {
+  modes.sort((a, b) => b - a);
+  let steps = 0;
+  let currentDistance = 0;
+
+  while (distance > 0) {
+    while (currentDistance <= distance && modes[0] > distance) {
+      currentDistance += modes[0];
+    }
+
+    if (currentDistance > distance) {
+      modes.shift();
+      currentDistance -= distance;
+      distance = 0;
+    }
+    else {
+      distance -= currentDistance;
+      currentDistance = 0;
+      steps++;
+    }
+  }
+
+  return distance === 0 ? steps : -1;
+};
+
+// console.log(robot([2, 4, 5], 12));
+
+const last = (str: string) => {
+  const reversedList = [];
+  for (const char of str) {
+    reversedList.unshift(char);
+  }
+
+  const res = '';
+
+  for (let index = 0; index < reversedList.length; index++) {
+    const curList = reversedList.join('').slice(index, 1).split('');
+    if (!curList.includes(reversedList[index])) {
+      return reversedList[index];
+    }
+    index++;
+  }
+
+  return res;
+};
+
+// console.log(last('shoppoee'));
+
+const minJumps = (modes: number[], distance: number) => {
+  if (distance === 0) return 0;
+
+  if (modes.length === 0) return -1;
+
+  const dp = new Array(distance + 1).fill(Infinity);
+
+  dp[0] = 0;
+
+  for (let i = 1; i <= distance; i++) {
+    for (const mode of modes) {
+      if (mode <= i) {
+        dp[i] = Math.min(dp[i], dp[i - mode] + 1);
+      }
+    }
+  }
+
+  return dp[distance] === Infinity ? -1 : dp[distance];
+};
+
+// console.log(minJumps([2, 4, 5], 12));
+
+class ownerMap {
+  map: Map<any, any>;
+  _map: WeakMap<object, any>;
+
+  constructor() {
+    this.map = new Map();
+    this._map = new WeakMap();
+  }
+
+  isObject(key: any) {
+    return typeof key === 'object' && key !== null;
+  }
+
+  get(key: any) {
+    return this.isObject(key) ? this._map.get(key) : this.map.get(key);
+  }
+
+  set(key: any, value: any) {
+    if (this.isObject(key)) {
+      this._map.set(key, value);
+      return;
+    }
+
+    this.map.set(key, value);
+  }
+
+  has(key: any) {
+    return this.isObject(key) ? this._map.has(key) : this.map.has(key);
+  }
+
+  delete(key: any) {
+    if (this.isObject(key)) {
+      this._map.delete(key);
+      return;
+    }
+
+    this.map.delete(key);
+  }
+}
+
+const memorize = function (fn: Function) {
+  const resFunction = (object: any) => {
+    if (resFunction.cache.has(object)) {
+      return resFunction.cache.get(object);
+    }
+
+    resFunction.cache.set(object, fn(object));
+    return resFunction.cache.get(object);
+  };
+
+  resFunction.cache = new ownerMap();
+
+  return resFunction;
+};
+
+const object = { a: 1, b: 2 };
+const other = { c: 3, d: 4 };
+
+const values = memorize((obj: object) => Object.values(obj));
+
+// console.log(values(object));
+
+// console.log(values(other));
+
+// object.a = 2;
+// console.log(values(object));
+
+// values.cache.set(object, ['a', 'b']);
+
+// console.log(values(object));
+
+{
+  const list = [1, 2, 3, 4, 5];
+  const list2 = list.map((item) => {
+    if (item === 3) {
+      return;
+    }
+    return item + 1;
+  });
+
+  console.log(list2);
+}
+
+{
+  const n = 4;
+  const m = 2;
+  const list = [5, 6, 3, 2];
+  const subList: number[][] = [];
+
+  if (list.length === m * 2) {
+    for (let i = 0; i < m; ++i) {
+      subList.push(list.slice(i, i + 2));
+    }
+  }
+
+  // console.log(subList);
+
+  // const res = subList.map((item) => gcdArray(item));
+  // console.log(res);
+
+  // function gcdArray(arr: number[]) {
+  //   let result = arr[0];
+  //   for (let i = 0; i < arr.length; ++i) {
+  //     result = gcd(result, arr[i]);
+  //   }
+
+  //   return result;
+  // }
+
+  // function gcd(a: number, b: number): number {
+  //   return b === 0 ? a : gcd(b, a % b);
+  // }
+}
