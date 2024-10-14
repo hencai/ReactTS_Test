@@ -117,18 +117,21 @@
      * 2. 缺点: 单一继承
      */
   {
-    function Father() {
-      this.father = 'Father';
-    }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const test = () => {
+      function Father() {
+        this.father = 'Father';
+      }
 
-    function Child() {
-      this.child = 'Child';
-    }
+      function Child() {
+        this.child = 'Child';
+      }
 
-    Child.prototype = new Father();
-    const child = new Child();
-    child.constructor = Child;
-    console.log(child.constructor);
+      Child.prototype = new Father();
+      const child = new Child();
+      child.constructor = Child;
+      console.log(child.constructor);
+    };
   }
 
   // 构造函数继承
@@ -138,22 +141,25 @@
      * 3. 缺点: 无法获取父类原型对象上的所有 & 子类实例修改父类构造函数中的属性,其余子类实例获取的父类构造函数所有也改变
      */
   {
-    function Father() {
-      this.father = 'Father';
-    }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const test = () => {
+      function Father() {
+        this.father = 'Father';
+      }
 
-    Father.prototype.sayFather = () => {
-      console.log('我是父亲');
+      Father.prototype.sayFather = () => {
+        console.log('我是父亲');
+      };
+
+      function Child() {
+        Father.call(this);
+        this.child = 'Child';
+      }
+
+      const child = new Child();
+      console.log(child.constructor);
+      console.log(child.name);
     };
-
-    function Child() {
-      Father.call(this);
-      this.child = 'Child';
-    }
-
-    const child = new Child();
-    console.log(child.constructor);
-    console.log(child.name);
   }
 
   // 组合继承
@@ -163,19 +169,22 @@
      * 3. 但是父类构造函数调用了两次,导致子类原型上多一份父类构造函数所有数据
      */
   {
-    function Father() {
-      this.father = 'Father';
-    }
-
-    function Child() {
-      Father.call(this, ...arguments);
-      this.child = 'Child';
-    }
-
-    Child.prototype = new Father();
-
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const child = new Child(1, 2, 3);
+    const test = () => {
+      function Father() {
+        this.father = 'Father';
+      }
+
+      function Child() {
+        Father.call(this, ...arguments);
+        this.child = 'Child';
+      }
+
+      Child.prototype = new Father();
+
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const child = new Child(1, 2, 3);
+    };
   }
 
   // 寄生继承
@@ -184,47 +193,53 @@
      * 2. 只使用Object.create()来创建父类的原型对象,而不是调用父类构造函数
      */
   {
-    function Father() {
-      this.father = 'Father';
-    }
-
-    function Child() {
-      Father.call(this);
-      this.child = 'Child';
-    }
-
-    Child.prototype = Object.create(Father.prototype, {
-      constructor: {
-        value: Child,
-        enumerable: false,
-        writable: true,
-        configurable: true,
-      },
-    });
-
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const child = new Child(1, 2, 3);
+    const test = () => {
+      function Father() {
+        this.father = 'Father';
+      }
+
+      function Child() {
+        Father.call(this);
+        this.child = 'Child';
+      }
+
+      Child.prototype = Object.create(Father.prototype, {
+        constructor: {
+          value: Child,
+          enumerable: false,
+          writable: true,
+          configurable: true,
+        },
+      });
+
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const child = new Child(1, 2, 3);
+    };
   }
 
   // es6 类继承
   {
-    class Father {
-      constructor() {
-        this.name = 'father';
-        console.log('调用父类构造器函数', arguments);
-      }
-    }
-
-    class Child extends Father {
-      constructor() {
-        super(...arguments);
-        console.log('调用子类构造器', arguments);
-        this.name = 'child';
-      }
-    }
-
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const child = new Child(1, 2, 3);
+    const test = () => {
+      class Father {
+        constructor() {
+          this.name = 'father';
+          console.log('调用父类构造器函数', arguments);
+        }
+      }
+
+      class Child extends Father {
+        constructor() {
+          super(...arguments);
+          console.log('调用子类构造器', arguments);
+          this.name = 'child';
+        }
+      }
+
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const child = new Child(1, 2, 3);
+    };
   }
 }
 
@@ -499,20 +514,23 @@
 }
 
 {
-  let x = 20,
-    y = 10;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    let x = 20,
+      y = 10;
 
-  function add(a, b) {
-    return a + b;
-  }
+    function add(a, b) {
+      return a + b;
+    }
 
-  let result = add(x, y);
-  console.log('result ' + result); // "result 60"
+    let result = add(x, y);
+    console.log('result ' + result); // "result 60"
 
-  function add(a) {
-    return a + 40;
-  }
-  let result1 = add(x);
-  console.log('result1 ' + result1); // "result1 60"
-  console.log(add);
+    function add(a) {
+      return a + 40;
+    }
+    let result1 = add(x);
+    console.log('result1 ' + result1); // "result1 60"
+    console.log(add);
+  };
 }
