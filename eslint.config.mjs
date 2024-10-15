@@ -32,6 +32,8 @@ export default [
       '@typescript-eslint/no-unused-vars': 'error',
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-unsafe-function-type': 'warn',
+      'no-unused-expressions': 'off',
+      '@typescript-eslint/no-unused-expressions': 'off',
 
       // pluginReact 插件全局配置
       'react/react-in-jsx-scope': 'off',

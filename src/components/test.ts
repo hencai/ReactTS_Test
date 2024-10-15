@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { chunk, concat } from 'lodash';
 
 {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -242,7 +242,7 @@ declare function interfaced(arg: Interface): Interface;
   const test = () => {
     const a = ['a', 'b', 'c', 'd'];
     console.log(a);
-    console.log(_.chunk(a, 3));
+    console.log(chunk(a, 3));
   };
 }
 
@@ -251,7 +251,7 @@ declare function interfaced(arg: Interface): Interface;
   const test = () => {
     const a: any = ['a', 'b', 'c', 'd', { d: 5 }];
     const b: any = [1, 2, 3, 4];
-    const c = _.concat(a, b);
+    const c = concat(a, b);
     console.log('a', a);
     console.log('c', c);
     console.log('修改后');
@@ -1582,5 +1582,288 @@ class maxQueue {
     function gcd(a: number, b: number): number {
       return b === 0 ? a : gcd(b, a % b);
     }
+  };
+}
+
+// 防抖： 多次执行，只执行最近一次
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const debounce = (fn: Function, delay: number) => {
+    let timer: NodeJS.Timeout | null = null;
+    return (...args: any[]) => {
+      if (timer) {
+        clearTimeout(timer);
+      }
+
+      timer = setTimeout(() => {
+        fn.apply(this, args);
+      }, delay);
+    };
+  };
+}
+
+// 节流，规定时间之内
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const throttle1 = (fn: Function, delay: number) => {
+    let timer: NodeJS.Timeout | null = null;
+    return (...args: any[]) => {
+      if (!timer) {
+        setTimeout(() => {
+          fn.apply(this, args);
+          timer = null;
+        }, delay);
+      }
+    };
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const throttle2 = (fn: Function, delay: number) => {
+    let last = 0;
+    return (...args: any[]) => {
+      const now = Date.now();
+      if (now - last >= delay) {
+        last = now;
+        fn.apply(this, args);
+      }
+    };
+  };
+  // setInterval(throttle2(() => {
+  //   console.log(2);
+  // }, 1000), 1);
+
+  // setInterval(throttle1(() => {
+  //   console.log(2);
+  // }, 1000), 1001);
+}
+
+// 手撕promiseAll
+// 如果成功入数组，失败 | 非promise 返回失败的原因
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const promiseAll = (promises: any[]) => {
+    return new Promise((resolve, reject) => {
+      const res: any[] = [];
+      if (promises.length === 0) {
+        resolve(res);
+      }
+
+      for (const promise of promises) {
+        if (!(promise instanceof Promise)) {
+          reject('非promise对象');
+        }
+
+        promise.then((data: unknown) => {
+          res.push(data);
+
+          if (res.length === promises.length) {
+            resolve(data);
+          }
+        }, (reason: any) => {
+          reject(reason);
+        });
+      }
+    });
+  };
+}
+
+// 数组去重
+// 第一种
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    const duplicate = (list: number[]) => Array.from(new Set(list));
+    console.log(duplicate([1, 2, 2, 3, 4]));
+  };
+  // test();
+}
+
+// 第二种
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    const duplicate = (list: number[]) => list.filter((num, index) => list.indexOf(num) === index);
+    console.log(duplicate([1, 2, 2, 3, 4]));
+  };
+  // test();
+}
+
+// 第三种
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    const duplicate = (list: number[]) => list.reduce<number[]>((res, num) => res.includes(num) ? res : res.concat(num), []);
+    console.log(duplicate([1, 2, 2, 3, 4]));
+  };
+  // test();
+}
+
+// 数组扁平化
+// 第一种
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    const flatten = (arr: any[], depth: number) => {
+      return arr.flat(depth);
+    };
+    console.log(flatten([1, 2, 3, [4, 5, [6, 7]]], 1));
+  };
+  // test();
+}
+
+// 第二种
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    const flatten = (arr: any[], depth: number) => depth === 0
+      ? arr
+      : arr.reduce((res, cur) => res.concat(Array.isArray(cur) ? flatten(cur, depth - 1) : cur), []);
+    console.log(flatten([1, 2, 3, [4, 5, [6, 7]]], 2));
+  };
+  // test();
+}
+
+// 第三种  同第二种写法的展开写法
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    const flatten = (arr: any[], depth: number) => {
+      if (depth === 0) return arr;
+      let res: any[] = [];
+      for (const data of arr) {
+        res = res.concat(Array.isArray(data) ? flatten(data, depth - 1) : data);
+      }
+      return res;
+    };
+    console.log(flatten([1, 2, 3, [4, 5, [6, 7]]], 1));
+  };
+  // test();
+}
+
+// 第四种  迭代栈
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    const flatten = (arr: any[], depth: number) => {
+      const stack: any[] = arr.map(item => [item, depth]);
+      const res: any[] = [];
+
+      while (stack.length > 0) {
+        const [item, depth] = stack.pop();
+        if (Array.isArray(item) && depth > 0) {
+          stack.push(...item.map(el => [el, depth - 1]));
+        }
+        else {
+          res.push(item);
+        }
+      }
+
+      return res.reverse();
+    };
+    console.log(flatten([1, 2, 3, [4, 5, [6, 7]]], 0));
+  };
+  // test();
+}
+
+// for of / for in 遍历可迭代对象的区别
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    const data = [5, 4, 3, 2, 1];
+    for (const num in data) {
+      console.log(num, typeof num);
+    }
+    for (const num of data) {
+      console.log(num, typeof num);
+    }
+  };
+}
+
+// 手撕深拷贝;
+// 第一种JSON.stringify 和 JSON.parse
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    const deepClone = (data: any) => JSON.parse(JSON.stringify(data));
+
+    const obj1 = { a: { b: 1, c: 2 }, d: 3 };
+    const obj2 = [1, 2, [3, 4]];
+    const copy1 = deepClone(obj1);
+    const copy2 = deepClone(obj2);
+    console.log('obj1:', obj1, 'copy1:', copy1, copy1 === obj1);
+    console.log('obj2:', obj2, `copy2: ${copy2}`, copy2 === obj2);
+  };
+  // test();
+}
+
+// 第二种
+// 函数无法拷贝
+{
+  const test = () => {
+    const deepClone = (data: any) => {
+      if (!(data !== null && typeof data === 'object')) {
+        return data;
+      }
+
+      let copy: Record<string, any> | any[] = {};
+      // let copy: { [key: string]: string } | any[] = {};
+
+      if (Array.isArray(data)) {
+        copy = [];
+        for (const ele of data) {
+          copy.push(deepClone(ele));
+        }
+      }
+      else {
+        for (const key in data) {
+          copy[key] = deepClone(data[key]);
+        }
+      }
+
+      return copy;
+    };
+
+    const obj1 = { a: { b: 1, c: 2 }, d: 3 };
+    const obj2 = [1, 2, [3, 4]];
+    const copy1 = deepClone(obj1);
+    const copy2 = deepClone(obj2);
+    console.log('obj1:', obj1, 'copy1:', copy1, copy1 === obj1);
+    console.log('obj2:', obj2, 'copy2:', copy2, copy2 === obj2);
+  };
+  test();
+}
+
+// 实现promise.race
+// 传入一个promise数组,哪个promise实例最先完成，就返回其结果，无论是成功还是失败的结果
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    const race = (promises: any[]): Promise<any> => {
+      return new Promise((resolve, reject) => {
+        for (const promise of promises) {
+          promise instanceof Promise
+            ? promise.then(resolve, reject)
+            : reject('数组中必须全部是promise实例');
+        }
+      });
+    };
+    // 使用示例
+    const promise1 = new Promise(resolve => setTimeout(() => resolve('one'), 1000));
+    const promise2 = new Promise(resolve => setTimeout(() => resolve('two'), 2000));
+    const promise3 = new Promise(resolve => setTimeout(() => resolve('three'), 3000));
+
+    race([promise1, promise2, promise3]).then((value) => {
+      console.log(value); // 输出 'one'，因为promise1最先解决
+    });
+  };
+  // test();
+}
+
+// 实现filter函数
+{
+  const test = () => {
+    const filter = () => {
+
+    };
   };
 }
