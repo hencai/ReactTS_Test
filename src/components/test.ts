@@ -1830,7 +1830,7 @@ class maxQueue {
     console.log('obj1:', obj1, 'copy1:', copy1, copy1 === obj1);
     console.log('obj2:', obj2, 'copy2:', copy2, copy2 === obj2);
   };
-  test();
+  // test();
 }
 
 // 实现promise.race
@@ -1860,10 +1860,24 @@ class maxQueue {
 }
 
 // 实现filter函数
+
+// 扩展 Function 原型
+
 {
   const test = () => {
-    const filter = () => {
+    Array.prototype.filter = function (callback: (ele: any, index: number, curArray: any[]) => boolean, context = this) {
+      const filtedList: any[] = [];
+      for (let i = 0; i < this.length; ++i) {
+        if (callback.call(context, this[i], i, this)) {
+          filtedList.push(this[i]);
+        }
+      }
 
+      return filtedList;
     };
+
+    const result = [1, 2, 3, 4, 4, 5, 5, 6].filter((item, index, cur) => index === cur.indexOf(item));
+    console.log(result);
   };
+  test();
 }
