@@ -1,4 +1,5 @@
 import { chunk, concat } from 'lodash';
+import { kMaxLength } from 'node:buffer';
 
 {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -1879,5 +1880,474 @@ class maxQueue {
     const result = [1, 2, 3, 4, 4, 5, 5, 6].filter((item, index, cur) => index === cur.indexOf(item));
     console.log(result);
   };
-  test();
+  // test();
+}
+
+// 反转字符串，输入www.a.com.cn，输出cn.com.a.www
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    const reverse = (params: string) => params.split('.').reverse().join('.');
+    console.log(reverse('www.a.com.cn'));
+  };
+
+  // test();
+}
+
+/**
+ * 设计一个函数，传入请求url数组，限制并发的请求个数limit，全部执行完毕以后执行callback（PS：这里我理解错了面试官的意思，他的意思是例如有100个请求，并发请求数为3，那么就会有最多三个请求一起执行，其中一个执行完了之后会有新的请求执行）
+ */
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const concurrent = (params: string[], limit: number) => {
+      let cur = 0;
+      let index = 0;
+      while (index < params.length) {
+        ++cur;
+        if (cur < limit) {
+          fetchUrl(url).then((data) => {
+            --cur;
+          }, (reason) => {
+            --cur;
+          });
+          ++index;
+        }
+      }
+    };
+
+    function fetchUrl(url: string) {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          // do something to request url for data
+          const data = url;
+          resolve(data);
+        }, Math.floor(Math.random() * 10000));
+      });
+    }
+  };
+}
+
+// 希尔排序
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    const xier = (params: number[]) => {
+      const n = params.length;
+
+      for (let gap = n >> 1; gap > 0; gap >>= 1) {
+        for (let i = gap; i < n; ++i) {
+          let prefix = i;
+          while (prefix >= gap && params[prefix - gap] > params[prefix]) {
+            [params[prefix], params[prefix - gap]] = [params[prefix - gap], params[prefix]];
+            prefix -= gap;
+          }
+        }
+      }
+      return params;
+    };
+
+    console.log(xier([8, 7, 6, 5, 4]));
+  };
+  // test();
+}
+
+// 大顶堆
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    class Heap {
+      heap: number[];
+      constructor() {
+        this.heap = [];
+      }
+
+      // 上浮操作
+      _bubbleUp(index: number) {
+        while (index > 0) {
+          const parentIndex = (index - 1) >> 1;
+          if (this.heap[index] > this.heap[parentIndex]) {
+            this.swap(index, parentIndex);
+            index = parentIndex;
+          }
+          else break;
+        }
+      }
+
+      // 下沉操作
+      _bubbleDown(index: number) {
+        while (true) {
+          const leftIndex = (index << 1) + 1;
+          const rightIndex = leftIndex + 1;
+          let nextIndex = index;
+          if (leftIndex < this.size() && this.heap[leftIndex] > this.heap[index]) {
+            nextIndex = leftIndex;
+          }
+          if (rightIndex < this.size() && this.heap[rightIndex] > this.heap[index]) {
+            nextIndex = rightIndex;
+          }
+
+          if (nextIndex === index) break;
+          this.swap(index, nextIndex);
+          index = nextIndex;
+        }
+      }
+
+      // 添加
+      push(item: number) {
+        this.heap.push(item);
+        this._bubbleUp(this.size() - 1);
+      }
+
+      // 删除并返回栈顶元素
+      pop() {
+        if (this.size() === 1) return this.heap.pop();
+        const top = this.heap[0];
+        this.heap[0] = this.heap.pop()!;
+        this._bubbleDown(0);
+        return top;
+      }
+
+      // 获取最大元素
+      peek() {
+        return this.heap[0];
+      }
+
+      // 获取最大栈长度
+      size() {
+        return this.heap.length;
+      }
+
+      swap(index1: number, index2: number) {
+        [this.heap[index1], this.heap[index2]] = [this.heap[index2], this.heap[index1]];
+      }
+
+      isEmpty() {
+        return this.size() === 0;
+      }
+    }
+
+    const maxHeap = new Heap();
+    maxHeap.push(5);
+    maxHeap.push(3);
+    maxHeap.push(8);
+    maxHeap.push(9);
+    maxHeap.push(2);
+    console.log(maxHeap.heap);
+    console.log(maxHeap.pop()); // 输出 8
+    console.log(maxHeap.peek()); // 输出 5
+  };
+  // test();
+}
+
+// 小顶堆
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    class Heap {
+      heap: number[];
+      constructor() {
+        this.heap = [];
+      }
+
+      push(item: number) {
+        this.heap.push(item);
+        this._bubbleUp(this.size() - 1);
+      }
+
+      pop() {
+        if (this.size() === 1) return this.heap.pop();
+
+        const top = this.heap[0];
+        this.heap[0] = this.heap.pop()!;
+        this._bubbleDown(0);
+
+        return top;
+      }
+
+      isEmpty() {
+        return this.size() === 0;
+      }
+
+      peek() {
+        return this.heap[0];
+      }
+
+      _bubbleUp(index: number) {
+        while (index > 0) {
+          const parentIndex = (index - 1) >> 1;
+          if (this.heap[index] < this.heap[parentIndex]) {
+            this.swap(index, parentIndex);
+            index = parentIndex;
+          }
+          else break;
+        }
+      }
+
+      _bubbleDown(index: number) {
+        while (true) {
+          const leftIndex = (index << 1) + 1;
+          const rightIndex = (index << 1) + 2;
+
+          let nextIndex = index;
+          if (leftIndex < this.size() && this.heap[nextIndex] > this.heap[leftIndex]) {
+            nextIndex = leftIndex;
+          }
+          if (rightIndex < this.size() && this.heap[nextIndex] > this.heap[rightIndex]) {
+            nextIndex = rightIndex;
+          }
+
+          if (nextIndex === index) break;
+          this.swap(index, nextIndex);
+          index = nextIndex;
+        }
+      }
+
+      size() {
+        return this.heap.length;
+      }
+
+      swap(index1: number, index2: number) {
+        [this.heap[index1], this.heap[index2]] = [this.heap[index2], this.heap[index1]];
+      }
+    }
+
+    const minHeap = new Heap();
+    minHeap.push(5);
+    minHeap.push(3);
+    minHeap.push(8);
+    console.log(minHeap.pop()); // 输出 3
+    console.log(minHeap.peek()); // 输出 5
+  };
+
+  // test();
+}
+
+// 堆排序
+{
+  class Heap {
+    heap: number[];
+    constructor() {
+      this.heap = [];
+    }
+
+    push(item: number) {
+      this.heap.push(item);
+      this._bubbleUp(this.size() - 1);
+    }
+
+    pop() {
+      if (this.size() === 1) return this.heap.pop();
+
+      const top = this.heap[0];
+      this.heap[0] = this.heap.pop()!;
+      this._bubbleDown(0);
+
+      return top;
+    }
+
+    isEmpty() {
+      return this.size() === 0;
+    }
+
+    peek() {
+      return this.heap[0];
+    }
+
+    _bubbleUp(index: number) {
+      while (index > 0) {
+        const parentIndex = (index - 1) >> 1;
+        if (this.heap[index] < this.heap[parentIndex]) {
+          this.swap(index, parentIndex);
+          index = parentIndex;
+        }
+        else break;
+      }
+    }
+
+    _bubbleDown(index: number) {
+      while (true) {
+        const leftIndex = (index << 1) + 1;
+        const rightIndex = (index << 1) + 2;
+
+        let nextIndex = index;
+        if (leftIndex < this.size() && this.heap[nextIndex] > this.heap[leftIndex]) {
+          nextIndex = leftIndex;
+        }
+        if (rightIndex < this.size() && this.heap[nextIndex] > this.heap[rightIndex]) {
+          nextIndex = rightIndex;
+        }
+
+        if (nextIndex === index) break;
+        this.swap(index, nextIndex);
+        index = nextIndex;
+      }
+    }
+
+    size() {
+      return this.heap.length;
+    }
+
+    swap(index1: number, index2: number) {
+      [this.heap[index1], this.heap[index2]] = [this.heap[index2], this.heap[index1]];
+    }
+  }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    const heapSort = (nums: number[]) => {
+      const minHeap = new Heap();
+      for (const num of nums) {
+        minHeap.push(num);
+      }
+
+      return nums.map(() => minHeap.pop());
+    };
+
+    console.log(heapSort([5, 1, 1, 2, 0, 0]));
+  };
+
+  // test();
+}
+
+// 快排 --- 随机切分
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    const quickSort = (nums: number[], start: number, end: number) => {
+      if (start >= end) return;
+
+      const mid = partrition(nums, start, end);
+      quickSort(nums, start, mid - 1);
+      quickSort(nums, mid + 1, end);
+
+      return nums;
+    };
+
+    function partrition(nums: number[], start: number, end: number) {
+      const randomIndex = start + Math.floor(Math.random() * (end - start) + 1);
+      [nums[randomIndex], nums[start]] = [nums[start], nums[randomIndex]];
+
+      const pivot = nums[start];
+      let lt = start;
+
+      for (let i = start + 1; i <= end; ++i) {
+        if (nums[i] < pivot) {
+          ++lt;
+          [nums[lt], nums[i]] = [nums[i], nums[lt]];
+        }
+      }
+
+      [nums[lt], nums[start]] = [nums[start], nums[lt]];
+      return lt;
+    };
+
+    console.log(quickSort([1, 3, 2, 5, 6, 4], 0, 5));
+  };
+
+  // test();
+}
+
+// 快排 --- 对撞指针
+// 以第一个数字为初始pivot
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    const quickSort = (nums: number[], start: number, end: number) => {
+      if (start >= end) return nums;
+
+      const mid = partrition(nums, start, end);
+      quickSort(nums, start, mid - 1);
+      quickSort(nums, mid + 1, end);
+
+      return nums;
+    };
+
+    function partrition(nums: number[], start: number, end: number) {
+      const pivot = nums[start];
+      let left = start + 1;
+      let right = end;
+      while (left < right) {
+        // 找出左边第一个大于 pivot 的坐标
+        while (left < right && nums[left] <= pivot) {
+          ++left;
+        }
+
+        // 找出右边第一个小于于 pivot 的坐标
+        while (left < right && nums[right] >= pivot) {
+          --right;
+        }
+
+        // 找到了存在的两个索引进行交换
+        if (left < right) {
+          [nums[left], nums[right]] = [nums[right], nums[left]];
+          ++left;
+          --right;
+        }
+      }
+
+      // 如果走到同一个数
+      if (left === right && nums[right] > pivot) {
+        --right;
+      }
+
+      if (right !== start) {
+        [nums[right], nums[start]] = [nums[start], nums[right]];
+      }
+
+      return right;
+    }
+
+    console.log(quickSort([1, 3, 2, 5, 6, 4], 0, 5));
+  };
+
+  // test();
+}
+
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    const quickSort = (nums: number[], start: number, end: number) => {
+      if (start >= end) return;
+
+      const mid = partrition(nums, start, end);
+      quickSort(nums, start, mid - 1);
+      quickSort(nums, mid + 1, end);
+
+      return nums;
+    };
+
+    function partrition(nums: number[], start: number, end: number) {
+      const randomIndex = start + Math.floor(Math.random() * (end - start) + 1);
+      [nums[randomIndex], nums[start]] = [nums[start], nums[randomIndex]];
+
+      const pivot = nums[start];
+
+      let lt = start;
+      let gt = end + 1;
+      let i = start + 1;
+      while (i < gt) {
+        if (nums[i] < pivot) {
+          ++lt;
+          [nums[i], nums[lt]] = [nums[lt], nums[i]];
+          ++i;
+        }
+        else if (nums[i] === pivot) {
+          ++i;
+        }
+        else {
+          --gt;
+          [nums[i], nums[gt]] = [nums[gt], nums[i]];
+        }
+      }
+
+      [nums[lt], nums[start]] = [nums[start], nums[lt]];
+
+      return lt;
+    };
+
+    console.log(quickSort([1, 3, 2, 5, 6, 4], 0, 5));
+  };
+
+  // test();
 }

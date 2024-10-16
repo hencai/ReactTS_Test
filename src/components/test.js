@@ -534,3 +534,11 @@
     console.log(add);
   };
 }
+
+{
+  let name = '张三';
+  let obj = { name };
+  console.log(obj.name);
+}
+
+let arr;
