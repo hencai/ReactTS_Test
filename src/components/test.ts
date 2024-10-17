@@ -2351,3 +2351,48 @@ class maxQueue {
 
   // test();
 }
+
+// 途虎笔试
+{
+  // 给定一个数组 返回一个集合，这个输入数组中的数据可以重复使用，返回的集合包括 数组中不同元素的组合方式，集合中的组合应该不重复 。js实现 例如【2,3,6】，需要和为8的 所有集合  输出结果为[[2,2,2,2], [2, 3, 3], [2, 6]  使用js实现
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    function combinationSum(candidates: number[], target: number) {
+      const result: number[][] = [];
+      const path: number[] = [];
+
+      candidates = candidates.sort((a, b) => a - b); // 排序以便我们可以剪枝
+
+      function backtrack(remain: number, start: number) {
+        if (remain === 0) {
+          result.push([...path]);
+          return;
+        }
+
+        for (let i = start; i < candidates.length; i++) {
+          if (candidates[i] > remain) break; // 剪枝，因为数组已经排序
+
+          path.push(candidates[i]);
+          backtrack(remain - candidates[i], i); // 再次调用，注意我们使用 i 而不是 start
+          path.pop();
+        }
+      }
+
+      backtrack(target, 0);
+      return result;
+    }
+
+    // 示例输入
+    const candidates = [2, 3, 6];
+    const target = 8;
+
+    // 获取组合
+    const combinations = combinationSum(candidates, target);
+
+    // 打印结果
+    console.log(combinations);
+  };
+
+  // test();
+}

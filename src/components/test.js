@@ -540,5 +540,3 @@
   let obj = { name };
   console.log(obj.name);
 }
-
-let arr;
