@@ -2396,3 +2396,22 @@ class maxQueue {
 
   // test();
 }
+
+// 循环索引
+{
+  const test = () => {
+    const recurIndex = (start: number, end: number) => {
+      let total = 0;
+      let cur = start;
+      while (total < 30) {
+        console.log(cur);
+        cur = (cur + 1) % (end + 1) === 0 ? start : (cur + 1) % (end + 1);
+        ++total;
+      }
+    };
+
+    recurIndex(1, 10);
+  };
+
+  test();
+}
