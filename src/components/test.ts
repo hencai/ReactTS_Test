@@ -1,3 +1,4 @@
+import { throwError } from 'element-plus/lib/utils/error.js';
 import { chunk, concat } from 'lodash';
 import { kMaxLength } from 'node:buffer';
 
@@ -2413,5 +2414,58 @@ class maxQueue {
     recurIndex(1, 10);
   };
 
-  test();
+  // test();
+}
+
+// JS实现一个带有并发限制的调度器，保证同时最多运行2个任务
+{
+  class Scheduler {
+    queue: Function[];
+    isRunning: number;
+
+    constructor() {
+      this.queue = [];
+      this.isRunning = 0;
+    }
+
+    add(fn: () => Promise<void>) {
+      if (this.isRunning < 2) {
+        this.isRunning++;
+        return fn().then(() => {
+          this.isRunning--;
+          this.queue.length && this.queue.shift()?.();
+        });
+      }
+      else {
+        return new Promise<void>((resolve) => {
+          this.queue.push(resolve);
+        }).then(() => {
+          this.isRunning++;
+          return fn().then(() => {
+            this.isRunning--;
+            this.queue.length && this.queue.shift()?.();
+          });
+        });
+      }
+    }
+  }
+
+  const timeout = (time: number) => new Promise<void>((resolve) => {
+    setTimeout(resolve, time);
+  });
+
+  const scheduler = new Scheduler();
+
+  const addTask = (time: number, order: number) => {
+    scheduler.add(() => timeout(time)).then(() => {
+      console.log(order);
+    });
+  };
+
+  addTask(4000, 4);
+  addTask(2000, 2);
+  addTask(3000, 3);
+  addTask(900, 1);
+
+  //  2 4 1 3
 }

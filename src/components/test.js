@@ -644,3 +644,11 @@ function parallelBatches(allTasks, limitCount) {
     })
     : Promise.all(allTasks);
 }
+
+const add = () => 1 + 2;
+
+const test = fn => fn();
+
+test(() => add());
+
+test(add());
