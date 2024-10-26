@@ -2419,53 +2419,130 @@ class maxQueue {
 
 // JS实现一个带有并发限制的调度器，保证同时最多运行2个任务
 {
-  class Scheduler {
-    queue: Function[];
-    isRunning: number;
+  const test = () => {
+    class Scheduler {
+      queue: Function[];
+      isRunning: number;
 
-    constructor() {
-      this.queue = [];
-      this.isRunning = 0;
-    }
-
-    add(fn: () => Promise<void>) {
-      if (this.isRunning < 2) {
-        this.isRunning++;
-        return fn().then(() => {
-          this.isRunning--;
-          this.queue.length && this.queue.shift()?.();
-        });
+      constructor() {
+        this.queue = [];
+        this.isRunning = 0;
       }
-      else {
-        return new Promise<void>((resolve) => {
-          this.queue.push(resolve);
-        }).then(() => {
+
+      add(fn: () => Promise<void>) {
+        if (this.isRunning < 2) {
           this.isRunning++;
           return fn().then(() => {
             this.isRunning--;
             this.queue.length && this.queue.shift()?.();
           });
-        });
+        }
+        else {
+          return new Promise<void>((resolve) => {
+            this.queue.push(resolve);
+          }).then(() => {
+            this.isRunning++;
+            return fn().then(() => {
+              this.isRunning--;
+              this.queue.length && this.queue.shift()?.();
+            });
+          });
+        }
       }
     }
-  }
 
-  const timeout = (time: number) => new Promise<void>((resolve) => {
-    setTimeout(resolve, time);
-  });
-
-  const scheduler = new Scheduler();
-
-  const addTask = (time: number, order: number) => {
-    scheduler.add(() => timeout(time)).then(() => {
-      console.log(order);
+    const timeout = (time: number) => new Promise<void>((resolve) => {
+      setTimeout(resolve, time);
     });
+
+    const scheduler = new Scheduler();
+
+    const addTask = (time: number, order: number) => {
+      scheduler.add(() => timeout(time)).then(() => {
+        console.log(order);
+      });
+    };
+
+    addTask(4000, 4);
+    addTask(2000, 2);
+    addTask(3000, 3);
+    addTask(900, 1);
   };
 
-  addTask(4000, 4);
-  addTask(2000, 2);
-  addTask(3000, 3);
-  addTask(900, 1);
-
+  // test();
   //  2 4 1 3
+}
+
+// 并行执行promise调度
+{
+  {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const test = () => {
+      function parallelLimit(allTasks: (() => Promise<any>)[], limitCount: number) {
+        let runningCount = 0; // 正在运行的任务数量
+        let index = 0; // 使用闭包保存任务数组的当前索引
+
+        function startTask() {
+          if (index < allTasks.length) {
+            const task = allTasks[index++];
+            runningCount++;
+            task().then(() => {
+              runningCount--;
+              startTask(); // 已经开启的任务谁先结束，继续往后走，启动下一个任务
+            });
+          }
+        }
+
+        while (runningCount < limitCount) {
+          startTask(); // 启动任务直到达到限制数量
+        }
+      }
+      const createPromise = (time: number, info: number) => new Promise<void>((resolve) => {
+        setTimeout(() => {
+          resolve();
+          console.log(info);
+        }, time);
+      });
+
+      const allTasks: (() => Promise<void>)[] = [];
+      allTasks.push(() => createPromise(4000, 4));
+      allTasks.push(() => createPromise(2000, 2));
+      allTasks.push(() => createPromise(3000, 3));
+      allTasks.push(() => createPromise(900, 1));
+
+      parallelLimit(allTasks, 2);
+    };
+
+    // test();
+  }
+
+  {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const test = () => {
+      function parallelBatches(allTasks: (() => Promise<void>)[], limitCount: number) {
+        allTasks.length > limitCount
+          ? Promise.all(allTasks.slice(0, limitCount).map(fn => fn())).then(() => {
+            parallelBatches(allTasks.slice(limitCount), limitCount);
+          })
+          : Promise.all(allTasks.map(fn => fn()));
+      }
+
+      const createPromise = (time: number, info: number) => new Promise<void>((resolve) => {
+        setTimeout(() => {
+          resolve();
+          console.log(info);
+        }, time);
+      });
+
+      const allTasks: (() => Promise<void>)[] = [];
+      allTasks.push(() => createPromise(4000, 4));
+      allTasks.push(() => createPromise(2000, 2));
+      allTasks.push(() => createPromise(3000, 3));
+      allTasks.push(() => createPromise(900, 1));
+
+      parallelBatches(allTasks, 2);
+    };
+
+    // test();
+  }
 }

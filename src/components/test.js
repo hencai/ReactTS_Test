@@ -536,119 +536,93 @@
 }
 
 {
-  let name = '张三';
-  let obj = { name };
-  // console.log(obj.name);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    let name = '张三';
+    let obj = { name };
+    console.log(obj.name);
+  };
 }
 
-// 第一个
-// {
-//   x = [1, 2, { a: 1 }];
-//   y = x;
-//   z = [...x];
-//   y[0] = 2;
-//   y[2].b = 2;
-//   z[2].a = 4;
-//   console.log(x, y, z);
-// }
-//  第二个
-// {
-//   x = [1, 2, { a: 1 }];
-//   y = x;
-//   z = [...x];
-//   t = Object.assign(z[2], { b: 3 });
-//   y[0] = 2;
-//   y[2].b = 2;
-//   z[2].a = 4;
-//   console.log(x, y, z, t);
-// }
-// 第三个暂时没输出 输出得第一题 第二题
-// {
-//   x = [1, 2, { a: 1 }];
-//   y = x;
-//   z = [...x];
-//   t = Object.assign({ b: 3 }, z[2]);
-//   y[0] = 2;
-//   y[2].b = 2;
-//   z[2].a = 4;
-//   console.log(x, y, z, t);
-// }
-
-// [2, 2, { a: 4, b: 2 }][2, 2, { a: 4, b: 2 }][1, 2, { a: 4, b: 2 }]
-// [2, 2, { a: 4, b: 2 }][2, 2, { a: 4, b: 2 }][1, 2, { a: 4, b: 2 }]         { a: 4, b: 2 }
-// [2, 2, { a: 4, b: 2 }][2, 2, { a: 4, b: 2 }][1, 2, { a: 4, b: 2 }]         { b: 3, a: 1 }
-
+// 输入输出第一题
 {
-  function findSurvivor(n) {
-    let survivors = [];
-    for (let i = 0; i < n; i++) {
-      survivors.push(i + 1); // 初始化编号，从1开始
-    }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    x = [1, 2, { a: 1 }];
+    y = x;
+    z = [...x];
+    y[0] = 2;
+    y[2].b = 2;
+    z[2].a = 4;
+    console.log(x, y, z);
+  };
+  // test();
+  [2, 2, { a: 4, b: 2 }];
+  [2, 2, { a: 4, b: 2 }];
+  [1, 2, { a: 4, b: 2 }];
+}
+// 输输出入第二题
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    x = [1, 2, { a: 1 }];
+    y = x;
+    z = [...x];
+    t = Object.assign(z[2], { b: 3 });
+    y[0] = 2;
+    y[2].b = 2;
+    z[2].a = 4;
+    console.log(x, y, z, t);
+  };
+  // test();
+  // [2, 2, { a: 4, b: 2 }];
+  // [2, 2, { a: 4, b: 2 }];
+  // [1, 2, { a: 4, b: 2 }];
+  // { a: 4, b: 2 };
+}
+// 输入输出第三题
+{
+  const test = () => {
+    x = [1, 2, { a: 1 }];
+    y = x;
+    z = [...x];
+    t = Object.assign({ b: 3 }, z[2]);
+    y[0] = 2;
+    y[2].b = 2;
+    z[2].a = 4;
+    console.log(x, y, z, t);
+  };
 
-    let index = 0; // 当前报数的位置
-    while (survivors.length > 1) {
-      // 每次数到3，就移除对应的小孩
-      index = (index + 2) % survivors.length; // 因为数到3的小孩退出，所以是+2
-      survivors.splice(index, 1);
-    }
-
-    return survivors[0]; // 返回最后剩下的小孩的编号
-  }
-
-  const numberOfChildren = 30;
-  // console.log(`最后剩下的小孩编号是: ${findSurvivor(numberOfChildren)}`);
+  test();
+  // [2, 2, { a: 4, b: 2 }];
+  // [2, 2, { a: 4, b: 2 }];
+  // [1, 2, { a: 4, b: 2 }];
+  // { b: 3, a：1 };
 }
 
+// 每个数到3的小孩子退出圈，求最后剩余的那个小孩的编号
 {
-  function parallelLimit(allTasks, limitCount) {
-    let runningCount = 0; // 正在运行的任务数量
-    let index = 0; // 任务数组的当前索引
-
-    function startTask() {
-      if (index < allTasks.length) {
-        const task = allTasks[index++];
-        runningCount++;
-        task().then(() => {
-          runningCount--;
-          startTask(); // 任务完成后，启动下一个任务
-        });
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    function findSurvivor(n) {
+      let survivors = [];
+      for (let i = 0; i < n; i++) {
+        survivors.push(i + 1); // 初始化编号，从1开始
       }
+
+      let index = 0; // 当前报数的位置
+      while (survivors.length > 1) {
+        // 每次数到3，就移除对应的小孩
+        index = (index + 2) % survivors.length; // 因为数到3的小孩退出，所以是+2
+        survivors.splice(index, 1);
+      }
+
+      return survivors[0]; // 返回最后剩下的小孩的编号
     }
 
-    while (runningCount < limitCount) {
-      startTask(); // 启动任务直到达到限制数量
-    }
-  }
+    const numberOfChildren = 30;
+    console.log(`最后剩下的小孩编号是: ${findSurvivor(numberOfChildren)}`);
+  };
 
-  // 示例异步任务
-  // function task(i) {
-  //   return new Promise((resolve) => {
-  //     setTimeout(() => {
-  //       console.log(`Task ${i} completed`);
-  //       resolve();
-  //     }, 1000);
-  //   });
-  // }
-
-  // // 所有任务
-  // const allTasks = Array.from({ length: 7 }, (_, i) => () => task(i));
-
-  // // 并发限制为3
-  // parallelLimit(allTasks, 3);
+  // test();
 }
-
-function parallelBatches(allTasks, limitCount) {
-  allTasks.length > limitCount
-    ? Promise.all(allTasks.slice(0, limitCount)).then(() => {
-      parallelBatches(allTasks.slice(limitCount), limitCount);
-    })
-    : Promise.all(allTasks);
-}
-
-const add = () => 1 + 2;
-
-const test = fn => fn();
-
-test(() => add());
-
-test(add());
