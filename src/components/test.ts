@@ -2546,3 +2546,155 @@ class maxQueue {
     // test();
   }
 }
+// 列表类型定义
+type ListItem = {
+  id: number
+  name: string
+  parentId: number | null
+
+};
+// 树类型定义
+type Tree = {
+  id: number
+  name: string
+  parentId: number | null
+  children: Tree[]
+};
+// 列表转树
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    // 使用map实现
+    const listToTree = (list: ListItem[]) => {
+      // 用来存储每个节点的结构
+      const map = new Map<number, Tree>();
+
+      // 获取根节点的id
+      const rootId = list.find(item => item.parentId === null)?.id || 0;
+
+      // 初始化每个节点的结构
+      list.forEach((item) => {
+        const { id, name, parentId } = item;
+        map.set(item.id, { id, name, parentId, children: [] });
+      });
+
+      // 遍历每个节点，将其添加在对应的父节点的children列表中
+      list.forEach((item) => {
+        // 根节点不需要处理
+        if (item.parentId === null) {
+          return;
+        }
+
+        // 如果存在父亲节点
+        const pNode = map.get(item.parentId);
+
+        // 父节点不在当前list中，不处理
+        if (!pNode) {
+          return;
+        }
+
+        // 父节点存在，则将其子节点添加到父节点的children列表中
+        pNode.children.push(map.get(item.id)!);
+      });
+
+      // 返回父节点
+      return map.get(rootId);
+    };
+
+    const list: ListItem[] = [
+      { id: 1, name: 'child1', parentId: 0 },
+      { id: 2, name: 'child2', parentId: 0 },
+      { id: 6, name: 'child2_1', parentId: 2 },
+      { id: 0, name: 'root', parentId: null },
+      { id: 5, name: 'child1_2', parentId: 1 },
+      { id: 4, name: 'child1_1', parentId: 1 },
+      { id: 3, name: 'child3', parentId: 0 },
+      { id: 7, name: 'child3_1', parentId: 3 },
+    ];
+
+    console.log(listToTree(list));
+  };
+
+  // test();
+}
+
+// 树转列表
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    const treeToList = (tree: Tree) => {
+      const res: ListItem[] = [];
+      if (!tree) {
+        return [];
+      }
+
+      // 存入根节点信息
+      const { id, name, parentId } = tree;
+      res.push({ id, name, parentId });
+
+      if (tree.children.length) {
+        tree.children.forEach((item) => {
+          res.push(...treeToList(item));
+        });
+      }
+
+      return res;
+    };
+    const tree: Tree = {
+      id: 0,
+      name: 'root',
+      parentId: null,
+      children: [
+        {
+          id: 1,
+          name: 'child1',
+          parentId: 0,
+          children: [
+            {
+              id: 5,
+              name: 'child1_2',
+              parentId: 1,
+              children: [],
+            },
+            {
+              id: 4,
+              name: 'child1_1',
+              parentId: 1,
+              children: [],
+            },
+          ],
+        },
+        {
+          id: 7,
+          name: 'child3',
+          parentId: 0,
+          children: [
+            {
+              id: 8,
+              name: 'child3_1',
+              parentId: 3,
+              children: [],
+            },
+          ],
+        },
+        {
+          id: 2,
+          name: 'child2',
+          parentId: 0,
+          children: [
+            {
+              id: 6,
+              name: 'child2_1',
+              parentId: 2,
+              children: [],
+            },
+          ],
+        },
+      ],
+    };
+
+    console.log(treeToList(tree));
+  };
+
+  // test();
+}
