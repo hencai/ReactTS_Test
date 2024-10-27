@@ -1,6 +1,4 @@
-import { throwError } from 'element-plus/lib/utils/error.js';
 import { chunk, concat } from 'lodash';
-import { kMaxLength } from 'node:buffer';
 
 {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -1801,6 +1799,7 @@ class maxQueue {
 // 第二种
 // 函数无法拷贝
 {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const deepClone = (data: any) => {
       if (!(data !== null && typeof data === 'object')) {
@@ -1866,6 +1865,7 @@ class maxQueue {
 // 扩展 Function 原型
 
 {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     Array.prototype.filter = function (callback: (ele: any, index: number, curArray: any[]) => boolean, context = this) {
       const filtedList: any[] = [];
@@ -2400,6 +2400,7 @@ class maxQueue {
 
 // 循环索引
 {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const recurIndex = (start: number, end: number) => {
       let total = 0;
@@ -2419,6 +2420,7 @@ class maxQueue {
 
 // JS实现一个带有并发限制的调度器，保证同时最多运行2个任务
 {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     class Scheduler {
       queue: Function[];
@@ -2697,4 +2699,242 @@ type Tree = {
   };
 
   // test();
+}
+
+// 判断数组的方式
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    const list: number[] = [1, 2, 3];
+
+    // 使用Object原型上的toString方法进行判断
+    console.log(Object.prototype.toString.call(list).slice(8, -1));
+    // 原生方法
+    console.log(Array.isArray(list));
+    // 借助原型链进行判断
+    console.log(Object.getPrototypeOf(list) === Array.prototype);
+    // 借助instanceof  (原理也是基于原型链进行判断)
+    console.log(list instanceof Array);
+  };
+
+  // test();
+}
+
+// this指向问题
+{
+  // 1、当做函数直接调用，this指向全局对象(window或者nodejs中的global对象)
+  // 2、当作对象的方法进行调用，指向调用当前方法的对象
+  // 3、当做构造器模型，指向新创建的实例对象
+  // 4、使用call、apply、bind进行调用时，指向函数中传入的上下文对象。
+}
+
+// 关于箭头函数简写形式(只有一条语句的时候可以在语句前添加void)
+// 箭头函数中的this指向在它定义时以及确定了，之后不会改变了
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    const simplify1 = (a: number) => void (a + 1);
+    const simplify2 = (a: number) => (a + 1);
+
+    console.log(simplify1(2));
+    console.log(simplify2(2));
+  };
+  // test();
+}
+
+// new 操作符都干了哪些事情
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    function myNew() {
+      // 1、创建一个对象
+      // 2、将这个对象的原型对象设置为函数的prototype对象
+      // 3、将当前的this指向新创建的实例对象
+      // 4、返回这个对象
+
+    }
+
+    myNew();
+  };
+  // test();
+}
+
+// 数组的splice方法总结
+// 返回包含了删除的元素的数组
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    const list: number[] = [1, 2, 3, 4, 5];
+
+    // 传入一个数值，代表开始索引，后面的都会被删除，负数就是倒着数，超过-length默认是0
+    const list1 = [...list];
+    console.log(list1.splice(2), list1);
+    const list2 = [...list];
+    console.log(list2.splice(-5), list2);
+    const list3 = [...list];
+    console.log(list3.splice(-6), list3);
+
+    // 传入两个数，第一个代表start，第二个代表要删除的元素个数
+    const list4 = [...list];
+    console.log(list4.splice(1, 3), list4);
+    const list5 = [...list];
+    console.log(list5.splice(2, 1), list5);
+    const list6 = [...list];
+    console.log(list6.splice(3, Infinity), list6);
+
+    // 传入三个及三个以上的参数，代表从start开始删除n个数字 然后添加多少个元素
+    const list7 = [...list];
+    console.log(list7.splice(1, 2, 8, 9), list7);
+  };
+
+  // test();
+}
+
+// JS中可迭代对象包括：
+//   1、Array,String,TypedArray,Map,Set,NodeList,arguments对象，
+//   2、由生成器函数生成的生成器，
+//   3、以及用户自定义的可迭代对象
+
+// JS中for-in和for-of的区别
+// 遍历数组的区别
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    const list: number[] = [1, 2, 3, 4, 5];
+    list.__proto__.name = 'hanshu';
+
+    console.log('for-in遍历会返回所有可枚举属性,包括非整数名称和被继承的属性');
+    for (const index in list) {
+      console.log(index);
+    }
+    console.log('for-of遍历值序列,不会遍历继承属性');
+    for (const item of list) {
+      console.log(item);
+    }
+  };
+
+  // test();
+}
+
+// JS中for-in和for-of的区别
+// 遍历对象的区别
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    const a: { [key: string]: number } = { a: 1, b: 2 };
+    a.__proto__.name = 'jicheng';
+
+    console.log('for-in遍历对象的可枚举字符串属性,包括继承属性');
+    for (const key in a) {
+      console.log(key);
+    }
+
+    console.log('for-of遍历对象的值序列,不包括继承属性,因为对象本身没有值序列,所以没有属性');
+    for (const key of a) {
+      console.log(key);
+    }
+    // 遍历对象自身属性的基本方法,但是需要加一层判断
+    for (const key in a) {
+      if (a.hasOwnProperty(key)) {
+        console.log(a[key]);
+      }
+    }
+
+    // 最好的遍历对象的属性的方法是使用Object.keys()或者Object.getOwnPropertyNames()函数
+
+    Object.keys(a).forEach(innerKey => console.log(a[innerKey]));
+    Object.getOwnPropertyNames(a).forEach(innerKey => console.log(a[innerKey]));
+  };
+
+  // test();
+}
+
+// 遍历数组的方法都有哪些
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    const list: number[] = [1, 2, 3, 4, 5];
+
+    console.log('while循环');
+    console.log('do-while');
+    console.log('for');
+    console.log('for-in');
+    for (const index in list) {
+      console.log(list[index]);
+    }
+
+    console.log('for-of');
+    for (const num of list) {
+      console.log(num);
+    }
+
+    console.log('forEach遍历:不改变原数组,但是可以对原数组中引用类型数据内部的属性值进行修改,任何时候都返回undefined');
+    list.forEach(num => console.log(num));
+
+    console.log('map遍历,返回新数组:不会改变原数组,有返回值,可以链式调用');
+    list.map(num => console.log(num));
+
+    console.log('filter遍历:不改变原始数组,返回符合条件的元素组成的数组,可链式调用');
+    console.log(list.filter(num => num < 3));
+
+    console.log('some遍历:不改变原始数组,只要有一个true,便终止返回true');
+    console.log(list.some(num => num > 6));
+
+    console.log('every遍历:不改变原数组,只要有一个是false,便终止返回false');
+    console.log(list.every(num => num < 6));
+
+    console.log('find遍历:找到第一个符合条件的元素,便终止返回其元素,否则返回undefined');
+    console.log(list.find(num => num === 3));
+
+    console.log('findIndex遍历:找到第一个符合条件的元素,便终止返回其索引,-1');
+    console.log(list.findIndex(num => num === 3));
+
+    console.log('reduce遍历求和:不改变原数组,对数组正序进行操作');
+    console.log(list.reduce((total, cur, index, array) => total + cur));
+
+    console.log('reduceRight遍历求和:不改变原数组,对数组逆序进行操作');
+    console.log(list.reduceRight((total, cur, index, array) => total + cur));
+  };
+
+  // test();
+}
+
+// 测试forEach方法返回值
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    const list: any[] = [1, 2, { a: 3, b: 4 }];
+
+    console.log('普通类型,不改变原数组');
+    console.log(list.forEach((item) => {
+      if (!(item instanceof Object)) {
+        item = 1;
+      }
+    }));
+
+    console.log('引用类型数据改变内部值,可以改变原数组,返回undefined');
+    console.log(list.forEach((item) => {
+      if (item instanceof Object) {
+        item.a = 5;
+      }
+    }));
+
+    console.log(list);
+
+    console.log('引用类型数据改变对象引用,无法改变原数组,返回undefined');
+    console.log(list.forEach((item) => {
+      if (item instanceof Object) {
+        item = { c: 1, d: 2 };
+      }
+    }));
+    console.log(list);
+  };
+
+  // test();
+}
+
+{
+  const test = () => {
+
+  };
 }
