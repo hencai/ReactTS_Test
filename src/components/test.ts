@@ -3117,12 +3117,13 @@ type Tree = {
 // 设计模式
 // 手写观察者模式
 {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     // 当数据变化的时候需要通知更新的数据
     const queueObservers = new Set<Function>();
     const observe = (fn: Function) => queueObservers.add(fn);
 
-    const observable = (obj: obejct) => void new Proxy(obj, {
+    const observable = (obj: object) => new Proxy(obj, {
       set(target, key, value, receiver) {
         const result = Reflect.set(target, key, value, receiver);
         // 通知
@@ -3135,6 +3136,23 @@ type Tree = {
       name: 'xbai',
     });
 
-    // ovserve(() => console.log('name变化了'));
+    observe(() => console.log('name变化了'));
+
+    obj.name = 'af';
+    obj.name = 'af1';
+  };
+
+  // test();
+}
+
+// 设计模式
+// 手写发布订阅模式
+{
+  const test = () => {
+    class Observer {
+      constructor() {
+
+      }
+    }
   };
 }
