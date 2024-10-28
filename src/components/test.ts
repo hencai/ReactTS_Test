@@ -3056,6 +3056,8 @@ type Tree = {
   // 实现一个柯里化函数求和
   // add(3, 5)   // 参数不够，返回函数
   // add(3, 5)(4)   // 参数够了，返回结果
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const curry = (fn: Function) => {
       // 如果传入的函数参数长度为0，不需要柯里化，直接当前函数
@@ -3080,5 +3082,59 @@ type Tree = {
     console.log(curryAdd(1)(2)(3));
   };
 
-  test();
+  // test();
+}
+
+// 设计模式
+// 手写单例模式
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    // 懒汉式： 类加载时候不创建，需要获取单例实例的时候动态判断是否需要创建单例实例
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    class singleInstance1 {
+      private static _instance: singleInstance1;
+      constructor() {
+        if (!singleInstance1._instance) {
+          singleInstance1._instance = new singleInstance1();
+        }
+        return singleInstance1._instance;
+      }
+    }
+
+    // 恶汉式: 一开始就创建好，不管需不要拿单例实例对象，我首创建好
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    class singleInstance2 {
+      private static _instance: singleInstance2 = new singleInstance2();
+
+      constructor() {
+        return singleInstance2._instance;
+      }
+    }
+  };
+}
+
+// 设计模式
+// 手写观察者模式
+{
+  const test = () => {
+    // 当数据变化的时候需要通知更新的数据
+    const queueObservers = new Set<Function>();
+    const observe = (fn: Function) => queueObservers.add(fn);
+
+    const observable = (obj: obejct) => void new Proxy(obj, {
+      set(target, key, value, receiver) {
+        const result = Reflect.set(target, key, value, receiver);
+        // 通知
+        queueObservers.forEach(fn => fn());
+        return result;
+      },
+    });
+
+    const obj = observable({
+      name: 'xbai',
+    });
+
+    // ovserve(() => console.log('name变化了'));
+  };
 }
