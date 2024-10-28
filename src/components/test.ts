@@ -3149,10 +3149,54 @@ type Tree = {
 // 手写发布订阅模式
 {
   const test = () => {
-    class Observer {
-      constructor() {
 
-      }
-    }
   };
+}
+
+// 关于Map的遍历
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    const myMap = new Map([
+      [0, 'zero'],
+      [1, 'one'],
+    ]);
+    // myMap.set(0, 'zero');
+    // myMap.set(1, 'one');
+    const res: string[] = [];
+
+    for (const entry of myMap) {
+      console.log(entry);
+      res.push(entry[1]);
+    }
+
+    console.log(res);
+
+    console.log(typeof myMap.values());
+    console.log(myMap.values());
+    console.log(Array.from(myMap.values()));
+
+    // for (const [key, value] of myMap) {
+    //   console.log(`${key} = ${value}`);
+    // }
+  };
+
+  // test();
+}
+
+// 关于set的遍历
+{
+  const test = () => {
+    const mySet = new Set([1, 2, 3]);
+
+    for (const num of mySet) {
+      console.log(num);
+    }
+
+    console.log(typeof mySet.keys());
+    console.log(mySet.keys());
+    console.log(mySet.values());
+  };
+
+  test();
 }
