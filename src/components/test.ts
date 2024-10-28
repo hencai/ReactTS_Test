@@ -2933,8 +2933,152 @@ type Tree = {
   // test();
 }
 
+// 作用域与作用域链
 {
-  const test = () => {
+  // 1、全局作用域，容易污染全局命名空间
+  // 2、函数作用域，函数内部声明的变量
+  // 3、块级作用域，代码块({}中的代码就算是一个代码块)
+  // 作用域链，首先在自身作用域找，找不到就一直向父级作用域找，知道找到window对象
+}
 
+// 异步编程相关
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    console.log('0');
+
+    new Promise<void>((resolve) => {
+      console.log(1);
+      resolve();
+      console.log(2);
+    }).then(() => {
+      console.log(3);
+    });
+
+    setTimeout(() => {
+      console.log(4);
+    }, 0);
+
+    console.log(5);
   };
+
+  // test();
+  // 0 1 3 5 3 4
+}
+
+// async函数永远返回promise对象
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    (async (num: number) => {
+      return num;
+    })(3).then((res) => {
+      console.log(res);
+    }).catch((err) => {
+      console.log(err, 'err');
+    });
+  };
+  // test();
+}
+
+// 1、async永远返回的是一个promise对象
+// 2、所以在最外层不能使用await去获取其值，只能使用then去处理结果
+// 3、如果直接执行async函数，会立即执行并返回一个promise，不会阻塞后面的代码，和普通返回promise的函数没有区别
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    console.log((async () => { })());
+  };
+
+  // test();
+}
+
+// 关乎Promise.resolve()静态方法(注意：原型对象上的方法，其实是每个实例可以访问的方法（实例方法）)
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    return Promise.resolve(1);
+    // 等价于
+    // return new Promise((resolve) => {
+    //   resolve(1);
+    // });
+  };
+}
+
+// 关于ES6新特性
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    // 1、箭头函数
+    // 2、解构赋值
+    // 3、模板字符串
+    // 4、async/await语法糖
+    // 5、symbol、bigInt数据结构
+    const s1 = Symbol(1);
+    const s2 = Symbol(2);
+    console.log(s1 === s2);
+
+    console.log(Symbol.for('1') === Symbol.for('1'));
+    // 6、let、const块级作用域
+    // 7、es6模块化
+    // 8、Map、Set数据结构
+    // 9、全局Proxy代理对象
+    // 10、引入Class类的面向对象编程思想
+    // 11、定义函数的时候可以使用默认参数
+    // 12、 展开运算符
+    // 13、for-of循环
+    // 14\ promise
+  };
+
+  // test();
+}
+
+// 匿名函数
+// 1、可以用于立即执行函数，防止污染全局命名空间
+// 2、可以作为只使用一次的回调函数，代码具有更好的自闭性和维护性，不需要跳跃阅读代码
+// 3、适用于函数式编程或者lodash回调
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    (() => {
+      console.log(123);
+    })();
+  };
+
+  // test();
+}
+
+// 函数柯里化
+// 1、主要是将具有多个参数的函数，分解为多个函数。
+// 2、当被进行串联调用，会将所有参数合并在一起执行函数，
+// 3、编写函数式编程的代码
+{
+  // 实现一个柯里化函数求和
+  // add(3, 5)   // 参数不够，返回函数
+  // add(3, 5)(4)   // 参数够了，返回结果
+  const test = () => {
+    const curry = (fn: Function) => {
+      // 如果传入的函数参数长度为0，不需要柯里化，直接当前函数
+      const total = fn.length;
+      if (!total) {
+        return fn;
+      }
+
+      return function curried(...args: number[]) {
+        return args.length >= total
+          ? fn(...args)
+          : (...moreArgs: number[]) => curried.apply(null, [...args, ...moreArgs]);
+      };
+    };
+
+    const add = (a: number, b: number, c: number) => a + b + c;
+
+    const curryAdd = curry(add);
+
+    console.log(curryAdd(3, 4));
+    console.log(curryAdd(3, 4)(5));
+    console.log(curryAdd(1)(2)(3));
+  };
+
+  test();
 }
