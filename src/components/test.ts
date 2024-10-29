@@ -1,4 +1,5 @@
 import { chunk, concat } from 'lodash';
+import { useEffect, useRef, useState } from 'react';
 
 {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -3160,7 +3161,7 @@ type Tree = {
 
     observe(() => console.log('name变化了'));
 
-    obj.name = 'af';
+    obj.name = 'af'; vvvvvvv;
     obj.name = 'af1';
   };
 
@@ -3223,4 +3224,73 @@ type Tree = {
   };
 
   // test();
+}
+
+// pdd二面面试题
+// 自定义hooks,写一个自定义的倒计时Hooks，传入剩余的秒数，hooks实时输出的时分秒，随着时间的流逝，输出的剩余时分秒会自动倒计时更新；到时间后，自动执行一个endCallback,如果传入的leftSeconds<=0，不执行endCallback
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    const formatTime = (time: number) => ({
+      year: 1, month: 1, day: 1, hour: 1, minute: 1, second: 1,
+    });
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const useTime = (leftSeconds: number, endCallback: Function) => {
+      if (leftSeconds <= 0) {
+        return;
+      }
+
+      const [year, setYear] = useState(0);
+      const [month, setMonth] = useState(0);
+      const [day, setDay] = useState(0);
+      const [hour, setHour] = useState(0);
+      const [minute, setMinute] = useState(0);
+      const [second, setSecond] = useState(0);
+
+      const ref = useRef(leftSeconds);
+
+      useEffect(() => {
+        const timer = setInterval(() => {
+          if (ref.current === 0) {
+            clearInterval(timer);
+            endCallback();
+            return;
+          }
+          const { year, month, day, hour, minute, second } = formatTime(ref.current);
+          setYear(year);
+          setMonth(month);
+          setDay(day);
+          setHour(hour);
+          setMinute(minute);
+          setSecond(second);
+          ref.current -= 1;
+        }, 1000);
+
+        return () => {
+          clearInterval(timer);
+        };
+      }, []);
+
+      return { year, month, day, hour, minute, second };
+    };
+  };
+
+  // test();
+}
+
+// pdd二面
+// promises数组，函数按照顺序执行这些promise，函数执行结束后返回一个Promise，最终resolve为所有Promise结果的数组
+
+// retry： 每一个Promise如果执行失败后，各自可以重试的最大次数
+
+// timeout：每一个promise各自执行的超时时间不超过timeout毫秒，涵盖该Promise重试花费的时间
+
+// 每个promise发生timeout超时后，该promise如果执行失败也不重试
+
+// 执行失败的promise在最终的结果数组中为其对应的error，timeout超时的error为Error('Timeout')
+
+{
+  const test = () => {
+
+  };
 }
