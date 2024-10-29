@@ -2821,11 +2821,26 @@ type Tree = {
 // JS中for-in和for-of的区别
 // 遍历对象的区别
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
-    const a: { [key: string]: number } = { a: 1, b: 2 };
+    const a: {
+      [key: string]: any
+      [Symbol.iterator]: () => { next(): { value: any, done: boolean } }
+    } = {
+      a: 1, b: 2,
+      [Symbol.iterator]() {
+        let index = 0;
+        const keys = Object.keys(this);
+        return {
+          next() {
+            return index < keys.length
+              ? { value: this[keys[index++]], done: false }
+              : { value: null, done: true };
+          },
+        };
+      },
+    };
 
-    a.__proto__.name = 'jicheng';
+    Object.getPrototypeOf(a).name = 'jicheng';
 
     console.log('for-in遍历对象的可枚举字符串属性,包括继承属性');
     for (const key in a) {
@@ -2849,7 +2864,7 @@ type Tree = {
     Object.getOwnPropertyNames(a).forEach(innerKey => console.log(a[innerKey]));
   };
 
-  // test();
+  test();
 }
 
 // 遍历数组的方法都有哪些
