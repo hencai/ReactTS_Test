@@ -1,4 +1,4 @@
-import { chunk, concat } from 'lodash';
+import { chunk, concat, noop } from 'lodash';
 import { useEffect, useRef, useState } from 'react';
 
 {
@@ -2822,6 +2822,7 @@ type Tree = {
 // JS中for-in和for-of的区别
 // 遍历对象的区别
 {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const a: {
       [key: string]: any
@@ -2865,7 +2866,7 @@ type Tree = {
     Object.getOwnPropertyNames(a).forEach(innerKey => console.log(a[innerKey]));
   };
 
-  test();
+  // test();
 }
 
 // 遍历数组的方法都有哪些
@@ -3161,7 +3162,7 @@ type Tree = {
 
     observe(() => console.log('name变化了'));
 
-    obj.name = 'af'; vvvvvvv;
+    obj.name = 'af';
     obj.name = 'af1';
   };
 
@@ -3290,7 +3291,55 @@ type Tree = {
 // 执行失败的promise在最终的结果数组中为其对应的error，timeout超时的error为Error('Timeout')
 
 {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const getResult = (promises: (() => Promise<any>)[], retry: number, timeout: number) => {
+      return new Promise((resolve) => {
+        const res: any[] = [];
 
+        function start(promise: () => Promise<any>) {
+          let count = 0;
+          const startTime = Date.now();
+          function restart(promise: () => Promise<any>) {
+            count++;
+            promise().then((result) => {
+              res.push(result);
+            }).catch((err) => {
+              if (Date.now() - startTime > timeout) {
+                res.push(Error('Timeout'));
+                return;
+              }
+
+              if (count > retry + 1) {
+                res.push(err);
+                return;
+              }
+
+              restart(promise);
+            });
+          }
+          restart(promise);
+        }
+
+        for (const promise of promises) {
+          start(promise);
+        }
+
+        resolve(res);
+      });
+    };
   };
+}
+
+// 字符串不可修改
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    const s1 = '123';
+    s1[0] = '4';
+    console.log(s1);
+  };
+
+  // test();
 }

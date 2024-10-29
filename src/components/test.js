@@ -582,6 +582,7 @@
 }
 // 输入输出第三题
 {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     x = [1, 2, { a: 1 }];
     y = x;
@@ -593,7 +594,7 @@
     console.log(x, y, z, t);
   };
 
-  test();
+  // test();
   // [2, 2, { a: 4, b: 2 }];
   // [2, 2, { a: 4, b: 2 }];
   // [1, 2, { a: 4, b: 2 }];
