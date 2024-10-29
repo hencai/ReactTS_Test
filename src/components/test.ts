@@ -1902,19 +1902,21 @@ class maxQueue {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const concurrent = (params: string[], limit: number) => {
-      let cur = 0;
+    const concurrent = (urls: string[], limit: number) => {
       let index = 0;
-      while (index < params.length) {
-        ++cur;
-        if (cur < limit) {
-          fetchUrl(url).then((data) => {
-            --cur;
-          }, (reason) => {
-            --cur;
-          });
-          ++index;
-        }
+      const startTask = () => {
+        if (index >= urls.length) return;
+        fetchUrl(urls[index++]).then(() => {
+          console.log('处理成功的回调');
+        }).catch(() => {
+          console.log('处理失败的回调');
+        }).finally(() => {
+          startTask();
+        });
+      };
+
+      while (index < limit) {
+        startTask();
       }
     };
 
@@ -2822,6 +2824,7 @@ type Tree = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const a: { [key: string]: number } = { a: 1, b: 2 };
+
     a.__proto__.name = 'jicheng';
 
     console.log('for-in遍历对象的可枚举字符串属性,包括继承属性');
@@ -2890,10 +2893,10 @@ type Tree = {
     console.log(list.findIndex(num => num === 3));
 
     console.log('reduce遍历求和:不改变原数组,对数组正序进行操作');
-    console.log(list.reduce((total, cur, index, array) => total + cur));
+    console.log(list.reduce((total, cur) => total + cur));
 
     console.log('reduceRight遍历求和:不改变原数组,对数组逆序进行操作');
-    console.log(list.reduceRight((total, cur, index, array) => total + cur));
+    console.log(list.reduceRight((total, cur) => total + cur));
   };
 
   // test();
@@ -3014,9 +3017,13 @@ type Tree = {
     // 3、模板字符串
     // 4、async/await语法糖
     // 5、symbol、bigInt数据结构
-    const s1 = Symbol(1);
-    const s2 = Symbol(2);
-    console.log(s1 === s2);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const test = () => {
+      // const s1 = Symbol(1);
+      // const s2 = Symbol(2);
+      // console.log(s1 === s2);  // false,每次调用都返回唯一值，传入的参数只是描述
+    };
+    // test();
 
     console.log(Symbol.for('1') === Symbol.for('1'));
     // 6、let、const块级作用域
@@ -3123,7 +3130,7 @@ type Tree = {
     const queueObservers = new Set<Function>();
     const observe = (fn: Function) => queueObservers.add(fn);
 
-    const observable = (obj: object) => new Proxy(obj, {
+    const observable = (obj: { [key: string]: string }) => new Proxy(obj, {
       set(target, key, value, receiver) {
         const result = Reflect.set(target, key, value, receiver);
         // 通知
@@ -3148,6 +3155,7 @@ type Tree = {
 // 设计模式
 // 手写发布订阅模式
 {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
 
   };
@@ -3186,6 +3194,7 @@ type Tree = {
 
 // 关于set的遍历
 {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const mySet = new Set([1, 2, 3]);
 
@@ -3198,5 +3207,5 @@ type Tree = {
     console.log(mySet.values());
   };
 
-  test();
+  // test();
 }
