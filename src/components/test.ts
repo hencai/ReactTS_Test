@@ -1,4 +1,4 @@
-import { chunk, concat, noop } from 'lodash';
+import { chunk, concat } from 'lodash';
 import { useEffect, useRef, useState } from 'react';
 
 {
@@ -510,6 +510,7 @@ declare function interfaced(arg: Interface): Interface;
 {
   const test = () => {
     // 1、简单实现，不考虑成功之后其他请求的处理
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const poll1 = async (url: string, param?: string) => {
       const timer = setInterval(() => {
         fetchData(url, param).then((res: any) => {
@@ -559,6 +560,7 @@ declare function interfaced(arg: Interface): Interface;
     };
 
     // 3、最完美的实现
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const poll3 = async (url: string, param: string) => {
       const controller = new AbortController();
       const timer = setTimeout(() => {
@@ -2900,7 +2902,7 @@ type Tree = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const list: number[] = [1, 2, 3, 4, 5];
-    list.__proto__.name = 'hanshu';
+    Object.getPrototypeOf(list).name = 'hanshu';
 
     console.log('for-in遍历会返回所有可枚举属性,包括非整数名称和被继承的属性');
     for (const index in list) {
