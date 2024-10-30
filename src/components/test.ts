@@ -3174,8 +3174,48 @@ type Tree = {
 {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    class PubSubModel {
+      // 事件中心
+      private static eventList: Map<string, ((data: any) => any)[]> = new Map();
 
+      sub(eventName: string, fn: (data: any) => any) {
+        if (!PubSubModel.eventList.has(eventName)) {
+          PubSubModel.eventList.set(eventName, []);
+        }
+
+        PubSubModel.eventList.get(eventName)?.push(fn);
+      }
+
+      // 取消订阅，如果没有传执行取消订阅的函数，则取消所有订阅函数
+      unsub(eventName: string, fn?: (data: any) => any) {
+        if (fn) {
+          PubSubModel.eventList.get(eventName)?.filter(subFn => subFn !== fn);
+          return;
+        }
+        PubSubModel.eventList.set(eventName, []);
+      }
+
+      pub(eventName: string, data: any) {
+        PubSubModel.eventList.get(eventName)?.forEach(fn => void fn(data));
+      }
+    }
   };
+
+  // test();
+}
+
+// 观察者vs发布订阅模式区别
+{
+  // 1、从表面来看
+  //  观察者模式有观察者，被观察者
+  //  发布订阅模式中，除了发布者和订阅者两个角色，还有一个经纪人
+  // 2、从更深层次来看
+  //  观察者和被观察者，是松耦合关系
+  //  发布者和订阅者，则完全不存在耦合
+  // 3、从使用层面来讲
+  //  观察者模式，是被观察者发生变化的时候，默认自动通知所有观察者更新
+  //  发布订阅模式，主要是当事件发布的时候，通知所有订阅了该事件的订阅者（类似于一些发送消息的中间件）
 }
 
 // 关于Map的遍历
@@ -3233,7 +3273,7 @@ type Tree = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const formatTime = (time: number) => ({
-      year: 1, month: 1, day: 1, hour: 1, minute: 1, second: 1,
+      year: 1, month: 1, day: 1, hour: 1, minute: 1, second: 1, originLeftSeconds: time,
     });
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const useTime = (leftSeconds: number, endCallback: Function) => {
@@ -3252,11 +3292,14 @@ type Tree = {
 
       useEffect(() => {
         const timer = setInterval(() => {
+          // 每次判断怒当前倒计时是否结束，结束，则执行endCallback,关闭间隔定时器,直接返回
           if (ref.current === 0) {
             clearInterval(timer);
             endCallback();
             return;
           }
+
+          // 更新倒计时
           const { year, month, day, hour, minute, second } = formatTime(ref.current);
           setYear(year);
           setMonth(month);
@@ -3264,7 +3307,9 @@ type Tree = {
           setHour(hour);
           setMinute(minute);
           setSecond(second);
-          ref.current -= 1;
+
+          // 更新倒计时
+          ref.current--;
         }, 1000);
 
         return () => {
@@ -3296,10 +3341,14 @@ type Tree = {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const getResult = (promises: (() => Promise<any>)[], retry: number, timeout: number) => {
       return new Promise((resolve) => {
+        // 存放结果数组
         const res: any[] = [];
 
+        // 启动任务函数
         function start(promise: () => Promise<any>) {
+          // 当前任务执行次数（重试次数 = 总执行次数 - 1）
           let count = 0;
+          // 任务执行开始时间
           const startTime = Date.now();
           function restart(promise: () => Promise<any>) {
             count++;
@@ -3308,17 +3357,18 @@ type Tree = {
             }).catch((err) => {
               if (Date.now() - startTime > timeout) {
                 res.push(Error('Timeout'));
-                return;
               }
-
-              if (count > retry + 1) {
+              //  如果当前已经重试了retry次数
+              else if (count - 1 >= retry) {
                 res.push(err);
-                return;
               }
-
-              restart(promise);
+              // 满足时间限制和retry条件，则重试
+              else {
+                restart(promise);
+              }
             });
           }
+          // 开启一个异步任务
           restart(promise);
         }
 
@@ -3326,6 +3376,7 @@ type Tree = {
           start(promise);
         }
 
+        // 所有异步任务按照顺序执行完成后，resolve结果数组
         resolve(res);
       });
     };
