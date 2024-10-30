@@ -500,7 +500,103 @@ declare function interfaced(arg: Interface): Interface;
   };
 }
 
+// 轮询接口
 // 每隔300ms轮询一次接口，如果接口状态码为200,则停止轮询
+// 1、简单实现
+//  开启一个300ms的间隔期，每次都发送一个请求，请求成功停止轮询，请求成功或者失败都停止轮询
+//  缺点：服务端成本较高，每隔300ms就接受了一次请求，如果响应时间过久，就会导致到一定时间第一次请求的结果成功了，但是后面的请求都已经发出，无法终止，如何终止后面的请求，是优化的关键
+// 2、第二种写法，如果一旦成功，取消之后的所有请求
+
+{
+  const test = () => {
+    // 1、简单实现，不考虑成功之后其他请求的处理
+    const poll1 = async (url: string, param?: string) => {
+      const timer = setInterval(() => {
+        fetchData(url, param).then((res: any) => {
+          if (res.code === 200) {
+            clearInterval(timer);
+          }
+          return res.data;
+        }, (err: any) => {
+          clearInterval(timer);
+          return err;
+        });
+      }, 300);
+
+      return () => void clearInterval(timer);
+    };
+
+    // 2、前端终止逻辑，后端无法收到终止的信号，只是前端不再接受后端请求的成功或失败的结果
+    const queue: { resolve: Function, reject: Function }[] = [];
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const poll2 = async (url: string, param: string) => {
+      const timer = setInterval(async () => {
+        try {
+          const result = await new Promise<any>((resolve, reject) => {
+            queue.push({ resolve, reject });
+            fetchData(url, param)
+              .then((data: any) => {
+                resolve(data);
+              }, (err: any) => {
+                reject(err);
+              })
+              .finally(() => {
+                queue.splice(queue.findIndex(item => item.resolve === resolve), 1);
+                // 成功之后终止其余请求，清楚定时器
+                clearInterval(timer);
+                for (const { reject } of queue) {
+                  reject('已经成功');
+                }
+              });
+          });
+
+          return result;
+        }
+        catch (error: any) {
+          console.log('promise发生错误', error);
+        }
+      }, 300);
+    };
+
+    // 3、最完美的实现
+    const poll3 = async (url: string, param: string) => {
+      const controller = new AbortController();
+      const timer = setTimeout(() => {
+        controller.abort();
+      }, 300);
+
+      try {
+        // 如果被AbortController终止之后就会抛出一个错误
+        // 1、AbortError
+        // 2、TimeoutError
+        // 3、其余网络请求可能发生的请求错误
+        const result = await fetch(url, { signal: controller.signal });
+        clearTimeout(timer);
+        return result;
+      }
+      catch (err: any) {
+        clearTimeout(timer);
+        if (err instanceof DOMException && err.name === 'AbortError') {
+          return poll3(url, param);
+        }
+        else {
+          return err;
+        }
+      }
+    };
+
+    const fetchData = async (url: string, param?: string) => {
+      let result;
+      console.log(url, param);
+      // 类似这种拿到请求数据
+      // result = await axios.post(url, param);
+
+      return result;
+    };
+  };
+
+  test();
+}
 
 /**
  * async / await 输出题
