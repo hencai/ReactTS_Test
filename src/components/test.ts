@@ -3492,3 +3492,304 @@ type Tree = {
 
   // test();
 }
+
+// 爬楼梯， 1  1   2  2   3 3
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    const climb = (n: number) => {
+      let p = 0;
+      let q = 0;
+      let r = 1;
+      for (let i = 1; i <= n; i++) {
+        p = q;
+        q = r;
+        r = p + q;
+      }
+
+      return r;
+    };
+
+    climb(2);
+  };
+  // test();
+}
+
+// ts函数类型申明
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+declare function pick<T extends Record<string, unknown>>(target: T, ...keys: (keyof T)[]): unknown;
+
+// 华为面试第一题
+{
+  //     a
+  // b       c
+  //    d  f
+  // e
+
+  // 前序:  中左右     abdecf
+  // 中序:  左中右     bedafc
+  // 后序:   左右中    edbfca
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  function levelOrder(root: object) {
+    if (!root) {
+      return [];
+    }
+
+    const result = [];
+    const queue = [];
+
+    queue.push(root);
+
+    while (queue.length) {
+      const node = queue.shift();
+      result.push(root);
+
+      if (node.left) {
+        queue.push(root.left);
+      }
+
+      if (node.right) {
+        queue.push(node.right);
+      }
+    }
+
+    return result;
+  }
+}
+
+// 华为一面第三题
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    {
+      function quickSort(nums: number[]): number[] {
+        if (nums.length <= 1) {
+          return nums;
+        }
+        // const pivot = partrition(nums, start, end);
+        // quickSort(nums, start, pivot - 1);
+        // quickSort(nums, pivot, end);
+
+        const pivot = nums[nums.length - 1];
+
+        const left = [];
+        const right = [];
+        const equal = [];
+        for (let i = 0; i < nums.length; i++) {
+          if (nums[i] < pivot) {
+            left.push(nums[i]);
+          }
+          else if (nums[i] > pivot) {
+            right.push(nums[i]);
+          }
+          else {
+            equal.push(nums[i]);
+          }
+        }
+
+        return [...quickSort(left), ...equal, ...quickSort(right)];
+      }
+
+      const arr = [10, 2, 7, 5, 3, 8, 6, 4, 9];
+
+      console.log(quickSort(arr));
+    }
+  };
+
+  // test();
+}
+
+// 华为二面链表排序
+
+{
+  // 链表节点结构定义
+  type Node = {
+    val: number
+    next: Node | null
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    function ListNode(val: number, next: Node | null) {
+      this.val = val;
+      this.next = next;
+    }
+
+    function sort(head1: Node, head2: Node) {
+      const dummyHead = ListNode(0, null);
+      let temp = dummyHead;
+      let temp1 = head1;
+      let temp2 = head2;
+
+      while (temp1 !== null && temp2 !== null) {
+        if (temp1.val <= temp2.val) {
+          temp.next = temp1;
+          temp1 = temp1.next;
+        }
+        else {
+          temp.next = temp2;
+          temp2 = temp2.next;
+        }
+
+        temp = temp.next;
+      }
+
+      if (temp1 !== null) {
+        temp.next = temp1;
+      }
+      else {
+        temp.next = temp2;
+      }
+
+      return dummyHead.next;
+    }
+
+    const sortList = (head: Node | null, tail: Node | null) => {
+      if (head === null) {
+        return head;
+      }
+
+      if (head.next === tail) {
+        head.next = null;
+        return head;
+      }
+
+      let slow = head;
+      let fast = head;
+
+      while (fast != tail) {
+        slow = slow.next;
+        fast = fast.next;
+        if (fast != tail) {
+          fast = fast.next;
+        }
+      }
+
+      const mid = slow;
+      return sort(sortList(head, mid), sortList(mid, tail));
+    };
+
+    const getList = function (head: Node | null) {
+      return sortList(head, null);
+    };
+
+    const printList = (head: Node | null) => {
+      let current = head;
+      const values = [];
+      while (current !== null) {
+        values.push(current.val);
+        current = current.next;
+      }
+
+      console.log(values.join('-->'));
+    };
+
+    const generateList = (arr: number[]) => {
+      const dummyHead = ListNode(0, null);
+
+      let current = dummyHead;
+
+      for (const num of arr) {
+        current.next = ListNode(num, null);
+        current = current.next;
+      }
+
+      return dummyHead.next;
+    };
+
+    const testData = [
+      [4, 2, 1, 3],
+      [-1, 5, 3, 4, 0],
+      [1],
+      [],
+    ];
+
+    for (const data of testData) {
+      const head = generateList(data);
+      printList(head);
+      const sortedList = getList(head);
+      printList(sortedList);
+    }
+  };
+  // test();
+}
+
+// 虾皮 curryAdd   关于普通函数访问不到当前普通函数原型对象身上的属性和方法
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    function curryAdd(...args: number[]) {
+      accumulator.prototype.total = args.reduce((acc, cur) => cur + acc, 0);
+
+      function accumulator(...args2: number[]) {
+        if (args2.length > 0) {
+          accumulator.prototype.total += args2.reduce((acc, cur) => cur + acc, 0);
+        }
+        return accumulator;
+      };
+
+      accumulator.prototype.count = () => accumulator.prototype.total;
+      return accumulator;
+    }
+
+    console.log(curryAdd(1)(2)(3).prototype.count());
+    console.log(curryAdd(1)(2)(3)(4).prototype.count());
+    console.log(curryAdd(1)(2)(3)(4, 5).prototype.count());
+  };
+
+  // 测试函数
+  // test();
+}
+
+// 第二种写法
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    function curryAdd(...args: number[]) {
+      let total = args.reduce((acc, cur) => cur + acc, 0);
+
+      function accumulator(...args2: number[]) {
+        if (args2.length > 0) {
+          total += args2.reduce((acc, cur) => cur + acc, 0);
+        }
+        return accumulator;
+      };
+
+      accumulator.count = () => total;
+      return accumulator;
+    }
+
+    console.log(curryAdd(1)(2)(3).count());
+    console.log(curryAdd(1)(2)(3)(4).count());
+    console.log(curryAdd(1)(2)(3)(4, 5).count());
+  };
+
+  // 测试函数
+  // test();
+}
+
+// 第三种写法
+{
+  const test = () => {
+    function curryAdd(...args: number[]) {
+      accumulator.__proto__.total = args.reduce((acc, cur) => cur + acc, 0);
+
+      function accumulator(...args2: number[]) {
+        if (args2.length > 0) {
+          accumulator.__proto__.total += args2.reduce((acc, cur) => cur + acc, 0);
+        }
+        return accumulator;
+      };
+
+      accumulator.__proto__.count = () => accumulator.total;
+      return accumulator;
+    }
+    console.log(curryAdd(1)(2)(3).count());
+    console.log(curryAdd(1)(2)(3)(4).count());
+    console.log(curryAdd(1)(2)(3)(4, 5).count());
+  };
+
+  // 测试函数
+  test();
+}
