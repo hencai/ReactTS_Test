@@ -627,3 +627,22 @@
 
   // test();
 }
+
+{
+  const test = () => {
+    function poiont() {
+      console.log('this', this === global);
+      this.x = '111';
+      this.y = '222';
+      return this.x + this.y;
+    }
+    const pit = poiont();
+    // console.log(x); // 111
+    // console.log(y); // 222
+    // console.log(pit); // 111222
+    // const pit2 = new poiont();
+    // console.log(pit2); // {x:'111',y:'222'}
+  };
+
+  test();
+}

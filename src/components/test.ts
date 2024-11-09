@@ -3771,6 +3771,7 @@ declare function pick<T extends Record<string, unknown>>(target: T, ...keys: (ke
 
 // 第三种写法
 {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     function curryAdd(...args: number[]) {
       accumulator.__proto__.total = args.reduce((acc, cur) => cur + acc, 0);
@@ -3791,5 +3792,76 @@ declare function pick<T extends Record<string, unknown>>(target: T, ...keys: (ke
   };
 
   // 测试函数
+  // test();
+}
+
+// 关于函数的原型
+// 1、函数对象跟其他对象不一样
+// 2、同时拥有__proto__属性和prototype属性
+// 3、__proto__属性指向Function构造函数的prototype一直到原型链的末端
+// 4、prototype属性主要是为了存放其作为构造函数时，所有实例对象共享的属性和方法，也能有一条完整的链路到原型链的末端
+//   4.1、当使用new去调用函数的时候，返回的新对象的__proto__属性会指向函数对象的prototype
+
+{
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test = () => {
+    function PrototypeChain(name?: string, age?: string) {
+      this.name = name;
+      this.age = age;
+    }
+
+    // 第一种为普通函数添加方法
+    // 第一种方式： 普通函数本身就是对象，与对象身上添加属性一样
+    // 第二种方式：普通函数本省就是对象，可以在其原型链上添加属性
+    PrototypeChain.ownMethod1 = () => void console.log('ownMethod1');
+    PrototypeChain.__proto__.ownMethod2 = () => void console.log('ownMethod2');
+
+    PrototypeChain.ownMethod1();
+    PrototypeChain.ownMethod2();
+    // 第二种为实例对象添加共享方法
+    PrototypeChain.prototype.instanceMethod = function () {
+      console.log('instanceMethod1', this.name, this.age);
+    };
+
+    const instacne1 = new PrototypeChain('xbai1', 24);
+    const instacne2 = new PrototypeChain('xbai2', 20);
+    instacne1.instanceMethod();
+    instacne2.instanceMethod();
+
+    // 判断走prototype链的时候能不能获取到__proto__链上的属性
+    // 结果： 不能拿到，找不到，会报错
+    // instacne1.ownMethod1();
+    // instacne1.ownMethod2();
+    // instacne2.ownMethod1();
+    // instacne2.ownMethod2();
+
+    // 判断prototype链的顶端是不是跟__proto__链的顶端重合
+    console.log(PrototypeChain.prototype);
+    console.log(PrototypeChain.prototype.__proto__ === PrototypeChain.__proto__.__proto__);
+  };
+
+  // test();
+}
+
+// 函数中使用this,但是没有使用new进行调用会污染全局命名作用域
+// 具体对照同样的js代码可以执行，但是ts代码不能执行 是为什么？
+{
+  const test = () => {
+    function poiont() {
+      console.log(this, 'this');
+      // this.x = '111';
+      // this.y = '222';
+      // return this.x + this.y;
+    }
+    const pit = poiont();
+    // console.log(x); // 111
+    // console.log(y); // 222
+    // console.log(pit); // 111222
+    // const pit2 = new poiont();
+    // console.log(pit2); // {x:'111',y:'222'}
+    console.log(this === global);
+    console.log(global);
+  };
+
   test();
 }
