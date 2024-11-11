@@ -3843,25 +3843,41 @@ declare function pick<T extends Record<string, unknown>>(target: T, ...keys: (ke
   // test();
 }
 
-// 函数中使用this,但是没有使用new进行调用会污染全局命名作用域
-// 具体对照同样的js代码可以执行，但是ts代码不能执行 是为什么？
+// 关于node环境中全局this指向问题
+// 如果是在函数中，this指向global对象，如果采用严格模式，将指向undefined
 {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
-    function poiont() {
-      console.log(this, 'this');
-      // this.x = '111';
-      // this.y = '222';
-      // return this.x + this.y;
-    }
-    const pit = poiont();
-    // console.log(x); // 111
-    // console.log(y); // 222
-    // console.log(pit); // 111222
-    // const pit2 = new poiont();
-    // console.log(pit2); // {x:'111',y:'222'}
-    console.log(this === global);
-    console.log(global);
+    console.log(this); // {}
+    console.log(module.exports); // {}
+    console.log(this === module.exports); // true
   };
 
-  test();
+  // test();
+}
+
+{
+  // 函数中使用this,但是没有使用new进行调用会污染全局命名作用域
+  // 具体对照同样的js代码可以执行，但是ts代码不能执行 是为什么？
+  {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const test = () => {
+      function poiont() {
+        console.log(this, 'this');
+        // this.x = '111';
+        // this.y = '222';
+        // return this.x + this.y;
+      }
+      const pit = poiont();
+      // console.log(x); // 111
+      // console.log(y); // 222
+      // console.log(pit); // 111222
+      // const pit2 = new poiont();
+      // console.log(pit2); // {x:'111',y:'222'}
+      // console.log(this === global);
+      // console.log(global);
+    };
+
+    // test();
+  }
 }

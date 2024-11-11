@@ -1,4 +1,5 @@
 {
+  // 针对所有文件进行配置，最终都会被引入到tsconfig.app.json文件中
   "compilerOptions": {
     "target": "ES2020",
     "useDefineForClassFields": true,

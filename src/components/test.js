@@ -629,9 +629,10 @@
 }
 
 {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     function poiont() {
-      console.log('this', this === global);
+      console.log('this1 === global', this === global); // true
       this.x = '111';
       this.y = '222';
       return this.x + this.y;
@@ -644,5 +645,5 @@
     // console.log(pit2); // {x:'111',y:'222'}
   };
 
-  test();
+  // test();
 }
