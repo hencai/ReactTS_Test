@@ -1,4 +1,4 @@
-import { chunk, concat } from 'lodash';
+impor: { chunk, concat } from 'lodash';
 import { useEffect, useRef, useState } from 'react';
 
 {
