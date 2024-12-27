@@ -1,5 +1,4 @@
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     Function.prototype.fn1 = () => console.log(1);
     Object.prototype.fn2 = () => console.log(2);
@@ -13,7 +12,6 @@
 // 写一个循环，每隔1s打印123456f
 // 第一种
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     for (var i = 0; i < 6; i++) {
       ((j) => {
@@ -27,7 +25,6 @@
 
 // 第二种
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     for (let i = 0; i < 6; i++) {
       setTimeout(() => {
@@ -39,7 +36,6 @@
 
 // 第三周
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     for (var i = 0; i < 6; i++) {
       const j = i;
@@ -51,7 +47,6 @@
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     for (var i = 0; i < 6; i++) {
       setTimeout(
@@ -67,7 +62,6 @@
 
 // 自己实现第一版
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const fetchData = async (api, param) =>
       new Promise((resolve, reject) => {
@@ -117,7 +111,6 @@
      * 2. 缺点: 单一继承
      */
   {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const test = () => {
       function Father() {
         this.father = 'Father';
@@ -141,7 +134,6 @@
      * 3. 缺点: 无法获取父类原型对象上的所有 & 子类实例修改父类构造函数中的属性,其余子类实例获取的父类构造函数所有也改变
      */
   {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const test = () => {
       function Father() {
         this.father = 'Father';
@@ -169,7 +161,6 @@
      * 3. 但是父类构造函数调用了两次,导致子类原型上多一份父类构造函数所有数据
      */
   {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const test = () => {
       function Father() {
         this.father = 'Father';
@@ -182,7 +173,6 @@
 
       Child.prototype = new Father();
 
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const child = new Child(1, 2, 3);
     };
   }
@@ -193,7 +183,6 @@
      * 2. 只使用Object.create()来创建父类的原型对象,而不是调用父类构造函数
      */
   {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const test = () => {
       function Father() {
         this.father = 'Father';
@@ -213,14 +202,12 @@
         },
       });
 
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const child = new Child(1, 2, 3);
     };
   }
 
   // es6 类继承
   {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const test = () => {
       class Father {
         constructor() {
@@ -237,7 +224,6 @@
         }
       }
 
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const child = new Child(1, 2, 3);
     };
   }
@@ -245,7 +231,6 @@
 
 // 笔试题
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const count = (n, m, directions) => {
       //   const TIME = Math.pow(10, 8);
@@ -310,7 +295,6 @@
 
 // 力扣题
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     let totalSum = inputs[1].reduce((sum, cur) => sum + cur, 0);
 
@@ -332,7 +316,6 @@
 
 // 笔试题
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     function calculateDistance(city1, city2) {
       return Math.sqrt(Math.pow(city1.x - city2.x, 2) + Math.pow(city1.y - city2.y, 2));
@@ -352,7 +335,6 @@
 
 // 笔试题
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     let n = inputs[0][0];
     let coordinates = [];
@@ -407,9 +389,7 @@
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const debounce = (fn, delay) => {
       let timer;
       return (...args) => {
@@ -425,7 +405,6 @@
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const findLastSingleChar = (str) => {
       const charMap = {};
@@ -455,7 +434,6 @@
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     function countOnes(x) {
       return x.toString(2).split('1').length - 1;
@@ -514,7 +492,6 @@
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     let x = 20,
       y = 10;
@@ -536,7 +513,6 @@
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     let name = '张三';
     let obj = { name };
@@ -546,7 +522,6 @@
 
 // 输入输出第一题
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     x = [1, 2, { a: 1 }];
     y = x;
@@ -563,7 +538,6 @@
 }
 // 输输出入第二题
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     x = [1, 2, { a: 1 }];
     y = x;
@@ -582,7 +556,6 @@
 }
 // 输入输出第三题
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     x = [1, 2, { a: 1 }];
     y = x;
@@ -603,7 +576,6 @@
 
 // 每个数到3的小孩子退出圈，求最后剩余的那个小孩的编号
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     function findSurvivor(n) {
       let survivors = [];
@@ -629,7 +601,6 @@
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     function poiont() {
       console.log('this1 === global', this === global); // true

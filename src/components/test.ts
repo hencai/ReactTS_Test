@@ -2,7 +2,6 @@ import { chunk, concat } from 'lodash';
 import { useEffect, useRef, useState } from 'react';
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const test1 = [
       { id: 0, title: 'Big Bellies' },
@@ -16,7 +15,6 @@ import { useEffect, useRef, useState } from 'react';
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   class Person {
     #address = '123';
     name: string;
@@ -37,7 +35,6 @@ import { useEffect, useRef, useState } from 'react';
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const obj = { a: 1, b: { c: 2 } };
     const { a, b: { c: d } } = obj;
@@ -55,14 +52,12 @@ import { useEffect, useRef, useState } from 'react';
   }
   const c: Color = Color.Green;
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     console.log(c);
   };
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     console.log(typeof null);
     const o = {
@@ -87,16 +82,13 @@ import { useEffect, useRef, useState } from 'react';
     return config;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
-    // eslint-disable-next-line  @typescript-eslint/no-unused-vars
     const mySquare = createSquare({ color: 'red', width: 100 });
   };
 }
 
 {
   type SearchFunc = (source: string, subString: number) => boolean;
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const mySearch: SearchFunc = function (sb: string, src: number) {
     console.log(sb, src);
     return false;
@@ -104,14 +96,12 @@ import { useEffect, useRef, useState } from 'react';
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   function buildName(lastName = 'Smith', firstName: string) {
     return `${firstName} ${lastName}`;
   }
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   function test<T>(arg: T) {
     console.log(arg);
     return arg;
@@ -123,7 +113,6 @@ import { useEffect, useRef, useState } from 'react';
     console.log(arg);
     return arg;
   };
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     func(123);
     func('123');
@@ -138,13 +127,11 @@ import { useEffect, useRef, useState } from 'react';
     hobby: number[]
   };
   // 使的接口属性变为可选属性
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   type commenPeople = Pick<People, 'name'>;
 }
 
 {
   type RecordObj = Record<'a' | 'b' | 'c', string[]>;
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const obj: RecordObj = {
     a: ['1'],
     b: ['1'],
@@ -155,7 +142,6 @@ import { useEffect, useRef, useState } from 'react';
 {
   type Test = number | undefined;
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const a: Test = undefined;
     console.log(a || 5);
@@ -166,9 +152,7 @@ type Alias = { num: number };
 interface Interface {
   num: number
 }
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 declare function aliased(arg: Alias): Alias;
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 declare function interfaced(arg: Interface): Interface;
 
 {
@@ -186,24 +170,20 @@ declare function interfaced(arg: Interface): Interface;
     radius: number
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   type a = Square | Rectangle | Circle;
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const a = {
     name: 'xbai',
     age: 18,
     handSome: false,
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   type test = typeof a;
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const target = { a: 1, b: 2 };
     const target2 = { c: 3, d: 4 };
@@ -215,7 +195,6 @@ declare function interfaced(arg: Interface): Interface;
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const obj = { a: 1, b: { c: 1 } };
     const copy = Object.assign({}, obj);
@@ -227,7 +206,6 @@ declare function interfaced(arg: Interface): Interface;
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const o1 = { a: 1, b: 1, c: 1 };
     const o2 = { b: 2, c: 2 };
@@ -239,7 +217,6 @@ declare function interfaced(arg: Interface): Interface;
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const a = ['a', 'b', 'c', 'd'];
     console.log(a);
@@ -248,7 +225,6 @@ declare function interfaced(arg: Interface): Interface;
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const a: any = ['a', 'b', 'c', 'd', { d: 5 }];
     const b: any = [1, 2, 3, 4];
@@ -270,7 +246,6 @@ declare function interfaced(arg: Interface): Interface;
     createdAt: number
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   type TodoPreview = Omit<Todo, 'description'>;
 }
 
@@ -281,18 +256,15 @@ declare function interfaced(arg: Interface): Interface;
     completed: boolean
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   type TodoPreview = Pick<Todo, 'title' | 'completed'>;
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     // console.log('a' in 'a' | 'b');
     console.log('b' in ['a', 'b']);
 
     console.log(5 < 4 ? 1 : 2);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     type MyBool = true | false;
 
     console.log(Array.isArray([1, 2, 6]));
@@ -300,7 +272,6 @@ declare function interfaced(arg: Interface): Interface;
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const debounce = (fn: Function, timeout: number) => {
     let timer: NodeJS.Timeout;
     return (...args: any[]) => {
@@ -313,7 +284,6 @@ declare function interfaced(arg: Interface): Interface;
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const throttle = (fn: Function, timeout: number) => {
     let timer: NodeJS.Timeout | null;
     return (...args: any[]) => {
@@ -330,7 +300,6 @@ declare function interfaced(arg: Interface): Interface;
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const anagrams = (str: string): string[] => {
       if (str.length <= 2) return str.length === 2 ? [str, str[1] + str[0]] : [str];
@@ -347,9 +316,7 @@ declare function interfaced(arg: Interface): Interface;
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const curry = (fn: Function, paramsLength = fn.length, ...args: any[]) =>
       args.length < paramsLength ? fn.bind(null, fn, paramsLength, ...args) : fn(...args);
 
@@ -364,7 +331,6 @@ declare function interfaced(arg: Interface): Interface;
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const flattenWithDepth = (array: any[], depth: number) =>
     depth === 0
       ? array
@@ -375,12 +341,10 @@ declare function interfaced(arg: Interface): Interface;
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const flattenOnce = (arr: any[]) => arr.reduce((a, v) => a.concat(v), []);
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const a = new Array(3);
     a.map(item => ({
@@ -393,7 +357,6 @@ declare function interfaced(arg: Interface): Interface;
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const flatten = (arr: any[]) =>
       arr.reduce((res, cur) => (Array.isArray(cur) ? res.concat(flatten(cur)) : res.concat([cur])), []);
@@ -404,7 +367,6 @@ declare function interfaced(arg: Interface): Interface;
 
 // for in 遍历对象key，不推荐 并且遍历原型链 不合适
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     for (const key in { a: 1, b: 2, c: 3 }) {
       console.log(key);
@@ -413,7 +375,6 @@ declare function interfaced(arg: Interface): Interface;
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const data = [1, 3, 5, 7, [4, [6, [7, 9]], 2], 1];
 
@@ -430,7 +391,6 @@ declare function interfaced(arg: Interface): Interface;
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const dataA = [[1], [5], [3, 4, 5, 6]];
     const newData = dataA.map(item => (item.length === 1 ? item[0] : item));
@@ -440,7 +400,6 @@ declare function interfaced(arg: Interface): Interface;
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const testObject = {
       a: 1,
@@ -455,7 +414,6 @@ declare function interfaced(arg: Interface): Interface;
 
 // 这种方式无法准确还原原始数据的类型
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const dataA = [[1], [5], [3, 4, 5, 6]];
     const flattenUseString = (array: any[]) =>
@@ -468,12 +426,10 @@ declare function interfaced(arg: Interface): Interface;
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const toArr = (data: any) => (Array.isArray(data) ? data : [data]);
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const debounce = (fn: Function, delay: number) => {
     let timer: NodeJS.Timeout;
     return (...rest: any[]) => {
@@ -486,7 +442,6 @@ declare function interfaced(arg: Interface): Interface;
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const throttle = (fn: Function, delay: number) => {
     let timer: NodeJS.Timeout | null;
     return (...rest: any[]) => {
@@ -605,7 +560,6 @@ declare function interfaced(arg: Interface): Interface;
  */
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     async function async1() {
       console.log('async1 start');
@@ -625,7 +579,6 @@ declare function interfaced(arg: Interface): Interface;
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     async function async1() {
       console.log('async1 start'); // 2
@@ -654,7 +607,6 @@ declare function interfaced(arg: Interface): Interface;
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     async function async1() {
       console.log('async1 start');
@@ -697,7 +649,6 @@ declare function interfaced(arg: Interface): Interface;
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     new Promise((resove, reject) => {
       reject('');
@@ -716,7 +667,6 @@ declare function interfaced(arg: Interface): Interface;
  * Promise题目
  */
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const p1 = Promise.resolve().then(() => 100);
     console.log('p1', p1); // fulfilled会触发后续then回调
@@ -739,7 +689,6 @@ declare function interfaced(arg: Interface): Interface;
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const p1 = Promise.reject('my error').catch(() => {
       console.log('catch error');
@@ -765,7 +714,6 @@ declare function interfaced(arg: Interface): Interface;
  */
 // 第一题
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     Promise.resolve()
       .then(() => console.log(1))// 状态返回fulfilled
@@ -777,7 +725,6 @@ declare function interfaced(arg: Interface): Interface;
 
 // 第二题
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     Promise.resolve()
       .then(() => { // then中有报错 状态返回rejected,后面的catch会执行
@@ -792,7 +739,6 @@ declare function interfaced(arg: Interface): Interface;
 
 // 第三题
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     Promise.resolve()
       .then(() => { // then中有报错 状态返回rejected，后面的catch会执行
@@ -809,7 +755,6 @@ declare function interfaced(arg: Interface): Interface;
  * 浏览器事件循环
  */
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     console.log('script start');
 
@@ -835,7 +780,6 @@ declare function interfaced(arg: Interface): Interface;
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     async function async1() {
       console.log('async1 start');
@@ -875,7 +819,6 @@ declare function interfaced(arg: Interface): Interface;
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const first = () => (new Promise((resolve) => {
       console.log(3);
@@ -910,7 +853,6 @@ declare function interfaced(arg: Interface): Interface;
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const getVideoDuration = async (file: File) => {
     // 创建 video DOM 元素  设置播放视频之前加载哪些信息，设置DOM元素加载视频 URL
     const video = document.createElement('video');
@@ -938,7 +880,6 @@ declare function interfaced(arg: Interface): Interface;
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const getVideoDuration = async (file: File) => {
     const video = document.createElement('video');
     video.preload = 'metadata';
@@ -966,7 +907,6 @@ declare function interfaced(arg: Interface): Interface;
  * @param delay
  */
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const debounce = (fn: Function, delay: number) => {
     let timer: NodeJS.Timeout | null;
     return (...args: any[]) => {
@@ -989,7 +929,6 @@ declare function interfaced(arg: Interface): Interface;
  * @returns
  */
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const throttle = (fn: Function, delay: number) => {
     let timer: NodeJS.Timeout | null;
     return (...args: any[]) => {
@@ -1006,7 +945,6 @@ declare function interfaced(arg: Interface): Interface;
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const throttle = (fn: Function, delay: number) => {
     let lastTime = 0;
     return (...args: any[]) => {
@@ -1026,7 +964,6 @@ declare function interfaced(arg: Interface): Interface;
  * 实现instanceof
  */
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     // 实例.__proto__ === 构造函数.prototype
     const myInstanceof = (instance: any, classOrFunc: any) => {
@@ -1067,7 +1004,6 @@ declare function interfaced(arg: Interface): Interface;
    * @param max
    * @returns
    */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const randomNumber = (min: number, max: number) => Math.floor(Math.random() * (max - min) + min);
 }
 
@@ -1180,7 +1116,6 @@ declare function interfaced(arg: Interface): Interface;
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   function maxSlidingWindow(nums: number[], k: number): number[] {
     if (nums.length === 0) return [];
     if (k === 1) return nums;
@@ -1238,7 +1173,6 @@ class maxQueue {
 
 // 携程笔试
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     function gcd(a: number, b: number) {
       while (b !== 0) {
@@ -1295,7 +1229,6 @@ class maxQueue {
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const list = [1, 2, 3, 4, 5];
     const qList = [
@@ -1321,7 +1254,6 @@ class maxQueue {
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const list: number[] = [1, 2, 3, 4, 5];
     const qList: number[][] = [
@@ -1353,7 +1285,6 @@ class maxQueue {
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const flat = (arr: any[], n: number) =>
       n === 0
@@ -1367,7 +1298,6 @@ class maxQueue {
 
 // 笔试
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const count = (n: number, m: number, directions: ('L' | 'R' | 'U' | 'D')[][]) => {
@@ -1420,7 +1350,6 @@ class maxQueue {
 
 // 笔试
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const func = (matrix: number[][]) => {
       if (!matrix.length || !matrix[0].length) {
@@ -1473,7 +1402,6 @@ class maxQueue {
 
 // 笔试
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const robot = (modes: number[], distance: number) => {
       modes.sort((a, b) => b - a);
@@ -1506,7 +1434,6 @@ class maxQueue {
 
 // 笔试
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const last = (str: string) => {
       const reversedList = [];
@@ -1533,7 +1460,6 @@ class maxQueue {
 
 // 笔试
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const minJumps = (modes: number[], distance: number) => {
       if (distance === 0) return 0;
@@ -1561,7 +1487,6 @@ class maxQueue {
 
 // 自己练习场景题
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     class ownerMap {
       map: Map<any, any>;
@@ -1637,7 +1562,6 @@ class maxQueue {
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const list = [1, 2, 3, 4, 5];
     const list2 = list.map((item) => {
@@ -1652,7 +1576,6 @@ class maxQueue {
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const m = 2;
     const list = [5, 6, 3, 2];
@@ -1686,7 +1609,6 @@ class maxQueue {
 
 // 防抖： 多次执行，只执行最近一次
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const debounce = (fn: Function, delay: number) => {
     let timer: NodeJS.Timeout | null = null;
     return (...args: any[]) => {
@@ -1703,7 +1625,6 @@ class maxQueue {
 
 // 节流，规定时间之内
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const throttle1 = (fn: Function, delay: number) => {
     let timer: NodeJS.Timeout | null = null;
     return (...args: any[]) => {
@@ -1716,7 +1637,6 @@ class maxQueue {
     };
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const throttle2 = (fn: Function, delay: number) => {
     let last = 0;
     return (...args: any[]) => {
@@ -1739,7 +1659,6 @@ class maxQueue {
 // 手撕promiseAll
 // 如果成功入数组，失败 | 非promise 返回失败的原因
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const promiseAll = (promises: any[]) => {
     return new Promise((resolve, reject) => {
       const res: any[] = [];
@@ -1769,7 +1688,6 @@ class maxQueue {
 // 数组去重
 // 第一种
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const duplicate = (list: number[]) => Array.from(new Set(list));
     console.log(duplicate([1, 2, 2, 3, 4]));
@@ -1779,7 +1697,6 @@ class maxQueue {
 
 // 第二种
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const duplicate = (list: number[]) => list.filter((num, index) => list.indexOf(num) === index);
     console.log(duplicate([1, 2, 2, 3, 4]));
@@ -1789,7 +1706,6 @@ class maxQueue {
 
 // 第三种
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const duplicate = (list: number[]) => list.reduce<number[]>((res, num) => res.includes(num) ? res : res.concat(num), []);
     console.log(duplicate([1, 2, 2, 3, 4]));
@@ -1800,7 +1716,6 @@ class maxQueue {
 // 数组扁平化
 // 第一种
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const flatten = (arr: any[], depth: number) => {
       return arr.flat(depth);
@@ -1812,7 +1727,6 @@ class maxQueue {
 
 // 第二种
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const flatten = (arr: any[], depth: number) => depth === 0
       ? arr
@@ -1824,7 +1738,6 @@ class maxQueue {
 
 // 第三种  同第二种写法的展开写法
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const flatten = (arr: any[], depth: number) => {
       if (depth === 0) return arr;
@@ -1841,7 +1754,6 @@ class maxQueue {
 
 // 第四种  迭代栈
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const flatten = (arr: any[], depth: number) => {
       const stack: any[] = arr.map(item => [item, depth]);
@@ -1866,7 +1778,6 @@ class maxQueue {
 
 // for of / for in 遍历可迭代对象的区别
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const data = [5, 4, 3, 2, 1];
     for (const num in data) {
@@ -1881,7 +1792,6 @@ class maxQueue {
 // 手撕深拷贝;
 // 第一种JSON.stringify 和 JSON.parse
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const deepClone = (data: any) => JSON.parse(JSON.stringify(data));
 
@@ -1898,7 +1808,6 @@ class maxQueue {
 // 第二种
 // 函数无法拷贝
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const deepClone = (data: any) => {
       if (!(data !== null && typeof data === 'object')) {
@@ -1936,7 +1845,6 @@ class maxQueue {
 // 实现promise.race
 // 传入一个promise数组,哪个promise实例最先完成，就返回其结果，无论是成功还是失败的结果
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const race = (promises: any[]): Promise<any> => {
       return new Promise((resolve, reject) => {
@@ -1964,7 +1872,6 @@ class maxQueue {
 // 扩展 Function 原型
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     Array.prototype.filter = function (callback: (ele: any, index: number, curArray: any[]) => boolean, context = this) {
       const filtedList: any[] = [];
@@ -1985,7 +1892,6 @@ class maxQueue {
 
 // 反转字符串，输入www.a.com.cn，输出cn.com.a.www
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const reverse = (params: string) => params.split('.').reverse().join('.');
     console.log(reverse('www.a.com.cn'));
@@ -1998,7 +1904,6 @@ class maxQueue {
  * 设计一个函数，传入请求url数组，限制并发的请求个数limit，全部执行完毕以后执行callback（PS：这里我理解错了面试官的意思，他的意思是例如有100个请求，并发请求数为3，那么就会有最多三个请求一起执行，其中一个执行完了之后会有新的请求执行）
  */
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const concurrent = (urls: string[], limit: number) => {
@@ -2033,7 +1938,6 @@ class maxQueue {
 
 // 希尔排序
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const xier = (params: number[]) => {
       const n = params.length;
@@ -2057,7 +1961,6 @@ class maxQueue {
 
 // 大顶堆
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     class Heap {
       heap: number[];
@@ -2145,7 +2048,6 @@ class maxQueue {
 
 // 小顶堆
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     class Heap {
       heap: number[];
@@ -2295,7 +2197,6 @@ class maxQueue {
       [this.heap[index1], this.heap[index2]] = [this.heap[index2], this.heap[index1]];
     }
   }
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const heapSort = (nums: number[]) => {
       const minHeap = new Heap();
@@ -2314,7 +2215,6 @@ class maxQueue {
 
 // 快排 --- 随机切分
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const quickSort = (nums: number[], start: number, end: number) => {
       if (start >= end) return;
@@ -2353,7 +2253,6 @@ class maxQueue {
 // 快排 --- 对撞指针
 // 以第一个数字为初始pivot
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const quickSort = (nums: number[], start: number, end: number) => {
       if (start >= end) return nums;
@@ -2407,7 +2306,6 @@ class maxQueue {
 }
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const quickSort = (nums: number[], start: number, end: number) => {
       if (start >= end) return;
@@ -2458,7 +2356,6 @@ class maxQueue {
 {
   // 给定一个数组 返回一个集合，这个输入数组中的数据可以重复使用，返回的集合包括 数组中不同元素的组合方式，集合中的组合应该不重复 。js实现 例如【2,3,6】，需要和为8的 所有集合  输出结果为[[2,2,2,2], [2, 3, 3], [2, 6]  使用js实现
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     function combinationSum(candidates: number[], target: number) {
       const result: number[][] = [];
@@ -2501,7 +2398,6 @@ class maxQueue {
 
 // 循环索引
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const recurIndex = (start: number, end: number) => {
       let total = 0;
@@ -2521,7 +2417,6 @@ class maxQueue {
 
 // JS实现一个带有并发限制的调度器，保证同时最多运行2个任务
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     class Scheduler {
       queue: Function[];
@@ -2665,7 +2560,6 @@ type Tree = {
 };
 // 列表转树
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     // 使用map实现
     const listToTree = (list: ListItem[]) => {
@@ -2723,7 +2617,6 @@ type Tree = {
 
 // 树转列表
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const treeToList = (tree: Tree) => {
       const res: ListItem[] = [];
@@ -2804,7 +2697,6 @@ type Tree = {
 
 // 判断数组的方式
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const list: number[] = [1, 2, 3];
 
@@ -2832,7 +2724,6 @@ type Tree = {
 // 关于箭头函数简写形式(只有一条语句的时候可以在语句前添加void)
 // 箭头函数中的this指向在它定义时以及确定了，之后不会改变了
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const simplify1 = (a: number) => void (a + 1);
     const simplify2 = (a: number) => (a + 1);
@@ -2845,7 +2736,6 @@ type Tree = {
 
 // new 操作符都干了哪些事情
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     function myNew() {
       // 1、创建一个对象
@@ -2863,7 +2753,6 @@ type Tree = {
 // 数组的splice方法总结
 // 返回包含了删除的元素的数组
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const list: number[] = [1, 2, 3, 4, 5];
 
@@ -2899,7 +2788,6 @@ type Tree = {
 // JS中for-in和for-of的区别
 // 遍历数组的区别
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const list: number[] = [1, 2, 3, 4, 5];
     Object.getPrototypeOf(list).name = 'hanshu';
@@ -2920,7 +2808,6 @@ type Tree = {
 // JS中for-in和for-of的区别
 // 遍历对象的区别
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const a: {
       [key: string]: any
@@ -2969,7 +2856,6 @@ type Tree = {
 
 // 遍历数组的方法都有哪些
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const list: number[] = [1, 2, 3, 4, 5];
 
@@ -3019,7 +2905,6 @@ type Tree = {
 
 // 测试forEach方法返回值
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const list: any[] = [1, 2, { a: 3, b: 4 }];
 
@@ -3061,7 +2946,6 @@ type Tree = {
 
 // 异步编程相关
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     console.log('0');
 
@@ -3086,7 +2970,6 @@ type Tree = {
 
 // async函数永远返回promise对象
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     (async (num: number) => {
       return num;
@@ -3103,7 +2986,6 @@ type Tree = {
 // 2、所以在最外层不能使用await去获取其值，只能使用then去处理结果
 // 3、如果直接执行async函数，会立即执行并返回一个promise，不会阻塞后面的代码，和普通返回promise的函数没有区别
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     console.log((async () => { })());
   };
@@ -3113,7 +2995,6 @@ type Tree = {
 
 // 关乎Promise.resolve()静态方法(注意：原型对象上的方法，其实是每个实例可以访问的方法（实例方法）)
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     return Promise.resolve(1);
     // 等价于
@@ -3125,7 +3006,6 @@ type Tree = {
 
 // 关于ES6新特性
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     // 1、箭头函数
     // 2、解构赋值
@@ -3160,7 +3040,6 @@ type Tree = {
 // 2、可以作为只使用一次的回调函数，代码具有更好的自闭性和维护性，不需要跳跃阅读代码
 // 3、适用于函数式编程或者lodash回调
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     (() => {
       console.log(123);
@@ -3179,7 +3058,6 @@ type Tree = {
   // add(3, 5)   // 参数不够，返回函数
   // add(3, 5)(4)   // 参数够了，返回结果
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const curry = (fn: Function) => {
       // 如果传入的函数参数长度为0，不需要柯里化，直接当前函数
@@ -3210,7 +3088,6 @@ type Tree = {
 // 设计模式
 // 手写单例模式
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     // 懒汉式： 类加载时候不创建，需要获取单例实例的时候动态判断是否需要创建单例实例
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -3239,7 +3116,6 @@ type Tree = {
 // 设计模式
 // 手写观察者模式
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     // 当数据变化的时候需要通知更新的数据
     const queueObservers = new Set<Function>();
@@ -3270,7 +3146,6 @@ type Tree = {
 // 设计模式
 // 手写发布订阅模式
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     class PubSubModel {
@@ -3318,7 +3193,6 @@ type Tree = {
 
 // 关于Map的遍历
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const myMap = new Map([
       [0, 'zero'],
@@ -3349,7 +3223,6 @@ type Tree = {
 
 // 关于set的遍历
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const mySet = new Set([1, 2, 3]);
 
@@ -3368,7 +3241,6 @@ type Tree = {
 // pdd二面面试题
 // 自定义hooks,写一个自定义的倒计时Hooks，传入剩余的秒数，hooks实时输出的时分秒，随着时间的流逝，输出的剩余时分秒会自动倒计时更新；到时间后，自动执行一个endCallback,如果传入的leftSeconds<=0，不执行endCallback
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const formatTime = (time: number) => ({
       year: 1, month: 1, day: 1, hour: 1, minute: 1, second: 1, originLeftSeconds: time,
@@ -3434,7 +3306,6 @@ type Tree = {
 // 执行失败的promise在最终的结果数组中为其对应的error，timeout超时的error为Error('Timeout')
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const getResult = (promises: (() => Promise<any>)[], retry: number, timeout: number) => {
@@ -3483,7 +3354,6 @@ type Tree = {
 
 // 字符串不可修改
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const s1 = '123';
     s1[0] = '4';
@@ -3495,7 +3365,6 @@ type Tree = {
 
 // 爬楼梯， 1  1   2  2   3 3
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     const climb = (n: number) => {
       let p = 0;
@@ -3530,7 +3399,6 @@ declare function pick<T extends Record<string, unknown>>(target: T, ...keys: (ke
   // 中序:  左中右     bedafc
   // 后序:   左右中    edbfca
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   function levelOrder(root: object) {
     if (!root) {
       return [];
@@ -3560,7 +3428,6 @@ declare function pick<T extends Record<string, unknown>>(target: T, ...keys: (ke
 
 // 华为一面第三题
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     {
       function quickSort(nums: number[]): number[] {
@@ -3609,7 +3476,6 @@ declare function pick<T extends Record<string, unknown>>(target: T, ...keys: (ke
     next: Node | null
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     function ListNode(val: number, next: Node | null) {
       this.val = val;
@@ -3717,7 +3583,6 @@ declare function pick<T extends Record<string, unknown>>(target: T, ...keys: (ke
 
 // 虾皮 curryAdd   关于普通函数访问不到当前普通函数原型对象身上的属性和方法
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     function curryAdd(...args: number[]) {
       accumulator.prototype.total = args.reduce((acc, cur) => cur + acc, 0);
@@ -3744,7 +3609,6 @@ declare function pick<T extends Record<string, unknown>>(target: T, ...keys: (ke
 
 // 第二种写法
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     function curryAdd(...args: number[]) {
       let total = args.reduce((acc, cur) => cur + acc, 0);
@@ -3771,7 +3635,6 @@ declare function pick<T extends Record<string, unknown>>(target: T, ...keys: (ke
 
 // 第三种写法
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     function curryAdd(...args: number[]) {
       accumulator.__proto__.total = args.reduce((acc, cur) => cur + acc, 0);
@@ -3803,7 +3666,6 @@ declare function pick<T extends Record<string, unknown>>(target: T, ...keys: (ke
 //   4.1、当使用new去调用函数的时候，返回的新对象的__proto__属性会指向函数对象的prototype
 
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     function PrototypeChain(name?: string, age?: string) {
       this.name = name;
@@ -3846,7 +3708,6 @@ declare function pick<T extends Record<string, unknown>>(target: T, ...keys: (ke
 // 关于node环境中全局this指向问题
 // 如果是在函数中，this指向global对象，如果采用严格模式，将指向undefined
 {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const test = () => {
     console.log(this); // {}
     console.log(module.exports); // {}

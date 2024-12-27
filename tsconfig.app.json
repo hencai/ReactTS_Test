@@ -21,7 +21,7 @@
     "allowJs": true,
     /* Linting */
     "strict": true,
-    "noImplicitThis": false
+    "noImplicitThis": false,
   },
   // 配置整个项目的tsconfig
   "include": [

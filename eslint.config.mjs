@@ -29,7 +29,7 @@ export default [
       'quotes': ['error', 'single'],
 
       // tslint插件 全局规则
-      '@typescript-eslint/no-unused-vars': 'error',
+      '@typescript-eslint/no-unused-vars': 'warn',
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-unsafe-function-type': 'warn',
       'no-unused-expressions': 'off',
